@@ -7,6 +7,23 @@ export const CONFIG = {
     CALENDAR_ID: 'demo@group.calendar.google.com',
     TIMEZONE: 'GMT-5',
 
+    DB_MAPPING: {
+        'nombre': 'name',
+        'valor': 'value',
+        'metodo': 'method',
+        'fechaInicio': 'startDate',
+        'correo': 'email',
+        'telefono': 'phone'
+    },
+
+    MEMBERSHIP_DURATION_MONTHS: {
+        'mensualidad': 1,
+        'mensualidad_dirigida': 1,
+        'trimestre_mensualidad': 3,
+        'semestre_mensualidad': 6,
+        'anualidad_mensualidad': 12
+    },
+
     PAYMENTS: {
         FORM_ID: 'form-id',
         SHEET_NAME: 'Pagos',
@@ -21,10 +38,10 @@ export const CONFIG = {
         },
         // Composition functions for Payment events
         EVENTS: {
-            EXPIRY_TITLE: (data) => `📞 Renovar: ${data.nombre}`,
-            EXPIRY_DESC: (data) => `Inicio: ${data.fechaInicioStr} | Duracion: ${data.duracionRaw}`,
-            REMINDER_TITLE: (data) => `⏰ Vence en 7 días: ${data.nombre}`,
-            REMINDER_DESC: (data) => `Inicio: ${data.fechaInicioStr} | Duracion: ${data.duracionRaw}`
+            EXPIRY_TITLE: (data) => `📞 Renovar: ${data.name}`,
+            EXPIRY_DESC: (data) => `Inicio: ${data.startDate} | Tipo: ${data.membershipType}`,
+            REMINDER_TITLE: (data) => `⏰ Vence en 7 días: ${data.name}`,
+            REMINDER_DESC: (data) => `Inicio: ${data.startDate} | Tipo: ${data.membershipType}`
         }
     },
 
@@ -40,9 +57,9 @@ export const CONFIG = {
         },
         // Composition functions for User events
         EVENTS: {
-            BIRTHDAY_TITLE: (data) => `🎈 Cumpleaños: ${data.nombre}`,
+            BIRTHDAY_TITLE: (data) => `🎈 Cumpleaños: ${data.name}`,
             BIRTHDAY_DESC: () => ``,
-            ANNIVERSARY_TITLE: (data) => `🎊 Aniversario en 3M: ${data.nombre}`,
+            ANNIVERSARY_TITLE: (data) => `🎊 Aniversario en 3M: ${data.name}`,
             ANNIVERSARY_DESC: () => ``
         }
     }
