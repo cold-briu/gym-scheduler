@@ -1,3 +1,18 @@
+- date: "2026-04-27T22:35:40-05:00"
+  description: "Updated agents/instructions.agent.md with Documentation Reconciliation guideline. Integrated gym-schedules.yaml into README.md, design-spec.yaml, execution-workflow.yaml, src/schemas.js, and src/config.js."
+  files_modified:
+    - agents/instructions.agent.md
+    - README.md
+    - specs/design-spec.yaml
+    - specs/execution-workflow.yaml
+    - src/schemas.js
+    - src/config.js
+
+- date: "2026-04-27T22:31:44-05:00"
+  description: "Created specs/gym-schedules.yaml to define gym class schedules and instructor availability matrix for enrollment tracking."
+  files_modified:
+    - specs/gym-schedules.yaml
+
 - date: "2026-04-27T20:38:00-05:00"
   description: "Updated agents/instructions.agent.md to include a new guideline that requires agents to log any changes they make into this changelog.yaml file."
   files_modified:

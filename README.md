@@ -36,6 +36,9 @@ Defines the system architecture, functional requirements, and data schemas for G
 ### [Form Fields Specification](specs/form-fields.yaml)
 The source of truth for Google Sheets column names and Google Form question titles.
 
+### [Gym Schedules Specification](specs/gym-schedules.yaml)
+Defines all possible gym class schedules and instructor availability matrix for enrollment tracking.
+
 ### [Execution Workflow](specs/execution-workflow.yaml)
 Maps the functional flow from form submission triggers through routing and handling.
 

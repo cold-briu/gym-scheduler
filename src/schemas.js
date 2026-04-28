@@ -22,6 +22,16 @@
  */
 
 /**
+ * @typedef {Object} ScheduleData
+ * @property {string} day
+ * @property {string} timeSlot
+ * @property {string} instructor
+ * @property {number} maxCapacity
+ * @property {number} availableSpots
+ * @property {string[]} enrolledUsers
+ */
+
+/**
  * Enum for Membership Types
  * @readonly
  * @enum {string}

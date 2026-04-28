@@ -16,6 +16,12 @@ Short and concise.
 - **Actionable Implementation Details**: Explicitly define which Google Apps Script functions and Calendar APIs are responsible for specific actions, similar to the `f_new_user` and `f_new_user_payment` features.
 - **Change Logging**: Each time an agent performs a change, they must log it into `agents/changelog.yaml`.
 - **Form Field Source of Truth**: The file `specs/form-fields.yaml` is the absolute source of truth for all Google Sheets column names and form field titles. Any changes to schemas in `src/schemas.js` or configuration mappings in `src/config.js` MUST be reconciled with this document.
+- **Documentation Reconciliation**: After any significant change (e.g., adding a new master sheet, form spec, or feature), the following files MUST be updated to reflect the new state:
+    - `README.md`
+    - `specs/design-spec.yaml`
+    - `specs/execution-workflow.yaml`
+    - `src/schemas.js`
+    - `src/config.js`
 - **Test Integrity**: 
     - Never manipulate or modify test files without an explicit request from the user.
     - Never alter tests or mock data solely to force a failing test to pass.

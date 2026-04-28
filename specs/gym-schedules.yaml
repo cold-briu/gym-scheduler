@@ -1,0 +1,47 @@
+# Gym Schedules Source of Truth
+# This document defines all possible gym schedules and instructor availability.
+# It serves as the specification for the 'Horarios' sheet used to track enrollment.
+
+sheet_name: Horarios
+
+columns:
+  Día:
+    internal_key: day
+    description: Day of the week
+  Horario:
+    internal_key: timeSlot
+    description: Time range of the class
+  Instructor:
+    internal_key: instructor
+    description: Assigned instructor for the slot
+  Cupos Totales:
+    internal_key: maxCapacity
+    description: Maximum number of students allowed
+  Cupos Disponibles:
+    internal_key: availableSpots
+    description: Remaining spots in the class
+  Inscritos:
+    internal_key: enrolledUsers
+    description: Reference or list of users currently enrolled
+
+availability:
+  instructors:
+    "Instructor A":
+      availability: "All slots"
+    "Instructor B":
+      availability: "All slots"
+    "Instructor C":
+      availability: "Mon-Fri 18-20 only"
+
+  matrix:
+    - days: [Lunes, Martes, Miércoles, Jueves, Viernes]
+      slots: ["14-16", "16-18", "18-20"]
+      instructors: ["Instructor A", "Instructor B"]
+    
+    - days: [Lunes, Martes, Miércoles, Jueves, Viernes]
+      slots: ["18-20"]
+      instructors: ["Instructor C"]
+
+    - days: [Sábado]
+      slots: ["09-11", "11-13", "14-16"]
+      instructors: ["Instructor A", "Instructor B"]

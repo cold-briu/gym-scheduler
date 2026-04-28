@@ -15,7 +15,13 @@ export const CONFIG = {
         'fechaInicio': 'startDate',
         'correo': 'email',
         'telefono': 'phone',
-        'cumpleaños': 'birthdayString'
+        'cumpleaños': 'birthdayString',
+        'día': 'day',
+        'horario': 'timeSlot',
+        'instructor': 'instructor',
+        'cupos totales': 'maxCapacity',
+        'cupos disponibles': 'availableSpots',
+        'inscritos': 'enrolledUsers'
     },
 
     MEMBERSHIP_TYPE_MONTHS: {
@@ -63,6 +69,19 @@ export const CONFIG = {
             BIRTHDAY_DESC: () => ``,
             ANNIVERSARY_TITLE: (data) => `🎊 Aniversario en 3M: ${data.name}`,
             ANNIVERSARY_DESC: () => ``
+        }
+    },
+
+    // 3. SCHEDULE SETTINGS (Reference Sheet)
+    SCHEDULE: {
+        SHEET_NAME: 'Horarios',
+        FIELDS: {
+            DAY: 'Día',
+            TIME_SLOT: 'Horario',
+            INSTRUCTOR: 'Instructor',
+            MAX_CAPACITY: 'Cupos Totales',
+            AVAILABLE_SPOTS: 'Cupos Disponibles',
+            ENROLLED: 'Inscritos'
         }
     }
 };

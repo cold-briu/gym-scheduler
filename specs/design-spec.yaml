@@ -5,7 +5,9 @@ system:
     database: Google Sheets
     backend: Google Apps Script
     input_layer: Google Forms
-    source_of_truth: specs/form-fields.yaml # Column names and form field definitions
+    source_of_truth:
+      - specs/form-fields.yaml # Column names and form field definitions
+      - specs/gym-schedules.yaml # Gym class schedules and instructor matrix
 
 features:
   - id: f_new_user
@@ -80,11 +82,12 @@ features:
         field_mapping:
           Usuario: user_id
           Clases: selected_classes
-      validation: Rejects assignment if selected class exceeds maximum participant capacity
+        schedule_source: specs/gym-schedules.yaml
+      validation: Rejects assignment if selected class exceeds maximum participant capacity defined in the schedules matrix
       data:
         - user_id (dropdown)
         - selected_classes
-        - available_capacity (calculated via active event attendee count)
+        - available_capacity (calculated via active event attendee count vs maxCapacity in Horarios sheet)
   
   - id: f_admin_attendance
     name: Class Attendance
