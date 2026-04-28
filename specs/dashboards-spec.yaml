@@ -1,0 +1,62 @@
+# Dashboards Specification
+# Format: Google Sheets Only
+# Note: No Web UI components or Navigation API specs per user request.
+
+dashboards:
+  - id: d_upcoming_schedules
+    name: "Upcoming Enrollments Dashboard"
+    objective: Provide admins a real-time view of student enrollment per class and instructor.
+    sheet_name: "DASH_Upcoming"
+    data_sources:
+      - sheet: "Inscripciones" (CONFIG.SCHEDULE.SHEET_NAME)
+      - sheet: "Usuarios" (CONFIG.USERS.SHEET_NAME)
+    logic:
+      - Aggregation: Group enrollments by Class ID (Time/Day/Instructor).
+      - Join: Cross-reference User IDs with User Names for readability.
+      - View: Chronological list of upcoming classes with a list of enrolled students.
+    columns:
+      - Field: "Día" (Source: Inscripciones)
+      - Field: "Horario" (Source: Inscripciones)
+      - Field: "Instructor" (Source: Inscripciones)
+      - Field: "Alumnos Inscritos" (Formula: TEXTJOIN of names from Usuarios where ID matches)
+      - Field: "Ocupación" (Formula: Count of IDs / Max Capacity from Horarios matrix)
+
+  - id: d_member_status_overview
+    name: "Member Status & Credits Dashboard"
+    objective: Centralized view of membership health, financial standing, and credit usage.
+    sheet_name: "DASH_Members"
+    data_sources:
+      - sheet: "Usuarios" (CONFIG.USERS.SHEET_NAME)
+      - sheet: "Pagos" (CONFIG.PAYMENTS.SHEET_NAME)
+      - sheet: "Asistencia" (CONFIG.ATTENDANCE.SHEET_NAME)
+    logic:
+      - Membership Status: Compare current date with (Latest Payment Date + Duration).
+      - Classes Left: Total credits purchased (Sum of Pagos) - Total attendance (Count of Asistencia).
+      - Color Coding: Use conditional formatting for expiring/expired members.
+    columns:
+      - Field: "Nombre" (Source: Usuarios)
+      - Field: "Estado" (Logic: Active / Expiring / Expired)
+      - Field: "Créditos Restantes" (Formula: Credits - Attendance)
+      - Field: "Fecha de Vencimiento" (Source: Pagos calculation)
+      - Field: "Último Pago" (Source: Max Date in Pagos for User)
+
+  - id: d_availability_dashboard
+    name: "Capacity & Availability Analysis"
+    objective: Identify crowded vs. empty slots to optimize scheduling.
+    sheet_name: "DASH_Availability"
+    data_sources:
+      - sheet: "Inscripciones" (CONFIG.SCHEDULE.SHEET_NAME)
+      - spec: "specs/gym-schedules.yaml" (Matrix of maxCapacity)
+    logic:
+      - Heatmap: Pivot table showing Day vs. Time with % occupancy as values.
+      - Calculation: (Current Enrollments / Max Capacity) * 100.
+      - Trends: Identify peak hours across the week.
+    columns:
+      - Field: "Día/Hora" (Pivot Rows/Cols)
+      - Field: "Ocupación %" (Pivot Values)
+      - Field: "Cupos Disponibles" (Formula: Max - Current)
+
+implementation_notes:
+  - formulas: Use ARRAYFORMULA and VLOOKUP/QUERY to keep dashboards dynamic without manual script triggers.
+  - formatting: Use Google Sheets Conditional Formatting for visual cues (e.g., Red for 100% capacity).
+  - protection: Lock dashboard sheets to prevent accidental modification of formulas.

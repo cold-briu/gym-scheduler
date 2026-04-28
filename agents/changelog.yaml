@@ -178,3 +178,8 @@
     - src/schemas.js
     - src/config.js
     - specs/execution-workflow.yaml
+- date: "2026-04-27T23:23:00-05:00"
+  description: "Created specs/dashboards-spec.yaml defining three Google Sheets-based dashboards: Upcoming Enrollments, Member Status & Credits, and Capacity & Availability Analysis. These specifications replace previous web-app focused designs to align with the Sheets-only architecture."
+  files_modified:
+    - specs/dashboards-spec.yaml
+    - specs/implementation-status.md

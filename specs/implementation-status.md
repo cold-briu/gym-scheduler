@@ -11,6 +11,9 @@ This document tracks the implementation status of features defined in the [Desig
 | `f_admin_initial_schedule` | Initial Schedule Assignment | **Missing** | No handler or logic implemented in the codebase yet. |
 | `f_admin_attendance` | Class Attendance | **Missing (Spec Ready)** | Form specification and configuration added. Handler logic not yet implemented. |
 | `f_admin_modify_schedule` | Modify User Schedule | **Missing (Spec Ready)** | Form specification and configuration added. Handler logic not yet implemented. |
+| `d_upcoming_schedules` | Upcoming Enrollments Dashboard | **Missing (Spec Ready)** | Specification for Google Sheets-based view of enrollments. |
+| `d_member_status` | Member Status Dashboard | **Missing (Spec Ready)** | Specification for membership health and credit usage overview. |
+| `d_availability` | Availability Dashboard | **Missing (Spec Ready)** | Specification for capacity and heatmap analysis. |
 | `f_date_parsing` | Flexible Date Parsing | **Implemented** | Handled within specific handlers using regex splitters. |
 
 ---
@@ -42,6 +45,11 @@ The following administration-focused features from the spec are not yet present 
 - `f_admin_initial_schedule` (`onScheduleSubmit`, `checkCapacity`)
 - `f_admin_attendance` (`onAttendanceSubmit`, `deductCredits`) - **Spec Ready**
 - `f_admin_modify_schedule` (`onModifyScheduleSubmit`) - **Spec Ready**
+
+### 5. Dashboards (`dashboards-spec.yaml`)
+- `d_upcoming_schedules`: **Spec Ready** (Sheets-only)
+- `d_member_status`: **Spec Ready** (Sheets-only)
+- `d_availability`: **Spec Ready** (Sheets-only)
 
 ## Execution Workflow Status
 - **Router**: `masterFormRouter` is fully implemented and correctly delegates to Payments and Users handlers.
