@@ -5,6 +5,7 @@ system:
     database: Google Sheets
     backend: Google Apps Script
     input_layer: Google Forms
+    source_of_truth: specs/form-fields.yaml # Column names and form field definitions
 
 features:
   - id: f_new_user

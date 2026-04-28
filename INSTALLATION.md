@@ -40,7 +40,7 @@ The easiest way to set up the database is to create the **Google Forms** first a
 4. In the spreadsheet, rename the new tab (e.g., "Form Responses 2") to **`Pagos`**.
 
 > [!IMPORTANT]
-> The script identifies data based on the **Tab Name** (`Usuarios` and `Pagos`) and the **Column Headers** (which must match the question titles exactly).
+> The script identifies data based on the **Tab Name** (`Usuarios` and `Pagos`) and the **Column Headers** (which must match the question titles exactly). These field names are defined in the project's source of truth: [form-fields.yaml](specs/form-fields.yaml).
 
 ---
 

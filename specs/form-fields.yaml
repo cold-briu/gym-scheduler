@@ -1,0 +1,61 @@
+# Google Sheets & Forms Field Source of Truth
+# This document serves as the absolute source of truth for all column names and form question titles.
+# All schemas (src/schemas.js) and configurations (src/config.js) must derive from these definitions.
+
+forms:
+  usuarios:
+    sheet_name: Usuarios
+    fields:
+      Nombre:
+        internal_key: name
+        type: Short answer
+        description: Full name of the member
+      Correo:
+        internal_key: email
+        type: Short answer
+        description: Email address for communication
+      Cumpleaños:
+        internal_key: birthdayString
+        type: Date
+        format: DD/MM/YYYY
+        description: Member's birthday for anniversary events
+      Telefono:
+        internal_key: phone
+        type: Short answer
+        description: Contact phone number
+
+  pagos:
+    sheet_name: Pagos
+    fields:
+      Nombre:
+        internal_key: name
+        type: Dropdown
+        description: Member name (dynamically updated from Usuarios sheet)
+      Valor:
+        internal_key: value
+        type: Number
+        description: Payment amount
+      Tipo de membresía:
+        internal_key: membershipType
+        type: Multiple choice
+        options:
+          - Día de Escalada
+          - Clase Dirigida
+          - Mensualidad
+          - Mensualidad Dirigida
+          - Trimestre Mensualidad
+          - Semestre Mensualidad
+          - Anualidad Mensualidad
+          - Curso Básico
+          - Curso Avanzado
+      Metodo:
+        internal_key: method
+        type: Multiple choice
+        options:
+          - Transferencia
+          - Efectivo
+      Fecha de inicio:
+        internal_key: startDate
+        type: Date
+        format: DD/MM/YYYY
+        description: Start date of the membership

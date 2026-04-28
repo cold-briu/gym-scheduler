@@ -115,3 +115,12 @@
   description: "Updated INSTALLATION.md to specify exact membership types and method options for Google Forms, removing vague terminology like 'etc' and 'e.g.' to ensure configuration alignment."
   files_modified:
     - INSTALLATION.md
+
+- date: "2026-04-27T22:21:00-05:00"
+  description: "Created specs/form-fields.yaml as the absolute source of truth for Google Sheets column names and form fields. Updated agents/instructions.agent.md, specs/design-spec.yaml, README.md, and INSTALLATION.md to reference this source of truth."
+  files_modified:
+    - specs/form-fields.yaml
+    - agents/instructions.agent.md
+    - specs/design-spec.yaml
+    - README.md
+    - INSTALLATION.md

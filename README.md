@@ -33,6 +33,9 @@ For a detailed breakdown of feature implementation, see [Implementation Status](
 ### [Design Specification](specs/design-spec.yaml)
 Defines the system architecture, functional requirements, and data schemas for Google Workspace integration.
 
+### [Form Fields Specification](specs/form-fields.yaml)
+The source of truth for Google Sheets column names and Google Form question titles.
+
 ### [Execution Workflow](specs/execution-workflow.yaml)
 Maps the functional flow from form submission triggers through routing and handling.
 
