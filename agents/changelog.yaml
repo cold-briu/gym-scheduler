@@ -29,3 +29,10 @@
   description: "Created agents/code-reviews.yaml to document the code review analysis for test/handlers.test.js."
   files_modified:
     - agents/code-reviews.yaml
+
+- date: "2026-04-27T21:30:00-05:00"
+  description: "Fixed 'Missing Date & Parameter Assertions' and 'Accidental Integration Testing' in onMemberSignup handler and tests. Mocked updateMemberDropdown and expanded assertions to verify date objects and recurrence rules. [CRITICAL]: Removed unrequested onPaymentSubmit testing and guards to avoid overfitting. Agents must avoid unrequested work to maintain focus on the specific task at hand."
+  files_modified:
+    - src/handlers.js
+    - test/handlers.test.js
+    - test/mock-data/data.js
