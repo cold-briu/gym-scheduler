@@ -1,0 +1,12 @@
+{
+  "name": "gym-scheduler",
+  "version": "1.0.0",
+  "description": "Gym Schedule System",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "node build.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
