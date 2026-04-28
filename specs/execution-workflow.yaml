@@ -37,6 +37,19 @@ execution_workflow:
         - action: "Append to Sheet"
           description: "Records the date, class, and attendance list in the 'Asistencia' sheet."
 
+    - condition: "sheetName === CONFIG.MODIFY.SHEET_NAME ('Cambios')"
+      handler: "onModifyScheduleSubmit(e)"
+      description: "Handles schedule modification requests (swapping classes)."
+      sequence:
+        - function: "getFieldValue(event, CONFIG.MODIFY.FIELDS, key)"
+          description: "Extracts swap details (User ID, Old Class Info, New Date, New Time, New Instructor) from the form submission."
+        - action: "Delete Old Calendar Event"
+          description: "Identifies and removes the existing calendar reservation for the user."
+        - action: "Create New Calendar Event"
+          description: "Schedules the replacement class session in the calendar."
+        - action: "Update Horarios Sheet"
+          description: "Decrements capacity for the new class and restores capacity for the old class."
+
     - condition: "default"
       action: "Log Warning"
       description: "If the sheet is neither Payments nor Users, logs a warning indicating an unknown sheet submission."

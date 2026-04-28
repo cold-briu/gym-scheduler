@@ -70,3 +70,28 @@ forms:
           - Asistió
         rows: "Pre-filled/Restricted list of Student Names officially signed up for that specific instructor's class."
         logic: "Updated via script based on 'Inscritos' in Horarios/Enrolled per Class sheet."
+  cambio_horario:
+    sheet_name: Cambios
+    fields:
+      Nombre:
+        internal_key: name
+        type: Dropdown
+        description: Member name (dynamically updated from Usuarios sheet)
+      Clase Actual:
+        internal_key: old_class_info
+        type: Dropdown
+        description: "The specific class reservation to be removed. Example: 'Miércoles mayo 02 : 14-16 - Instructor A'"
+        logic: "Dynamically populated with the user's upcoming class reservations."
+      Nueva Fecha:
+        internal_key: new_class_date
+        type: Date
+        format: DD/MM/YYYY
+        description: "The date for the new class session."
+      Nuevo Horario:
+        internal_key: new_class_time
+        type: Dropdown
+        description: "The time slot for the new class. Example: 'Viernes 18-20'"
+      Nuevo Instructor:
+        internal_key: new_class_instructor
+        type: Dropdown
+        description: "The instructor for the new class."

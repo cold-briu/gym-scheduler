@@ -118,23 +118,28 @@ features:
     description:
       actor: Admin
       trigger: Form submission (Sheet matching CONFIG.MODIFY.SHEET_NAME)
-      action: Alter class bookings
+      action: Alter class bookings (Swap one class for another)
       functions_used:
         - onModifyScheduleSubmit(event): Core modification handler
+        - masterFormRouter(e): Relays submission based on sheet name
       api_calls:
         - CalendarApp.getEventById.deleteEvent: Cancels existing class reservation
         - CalendarApp.createEvent: Schedules new replacement class
       schemas:
         config_reference: CONFIG.MODIFY
         field_mapping:
-          Usuario: user_id
-          Agregar: classes_to_add
-          Remover: classes_to_remove
+          Nombre: user_id
+          Clase Actual: old_class_info
+          Nueva Fecha: new_class_date
+          Nuevo Horario: new_class_time
+          Nuevo Instructor: new_class_instructor
       validation: Rejects removal if class is in the past; rejects addition if class is full
       data:
         - user_id (dropdown)
-        - classes_to_add
-        - classes_to_remove
+        - old_class_info
+        - new_class_date
+        - new_class_time
+        - new_class_instructor
 
   - id: f_date_parsing
     name: Flexible Date Parsing

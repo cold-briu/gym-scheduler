@@ -21,7 +21,11 @@ export const CONFIG = {
         'instructor': 'instructor',
         'cupos totales': 'maxCapacity',
         'cupos disponibles': 'availableSpots',
-        'inscritos': 'enrolledUsers'
+        'inscritos': 'enrolledUsers',
+        'clase actual': 'old_class_info',
+        'nueva fecha': 'new_class_date',
+        'nuevo horario': 'new_class_time',
+        'nuevo instructor': 'new_class_instructor'
     },
 
     MEMBERSHIP_TYPE_MONTHS: {
@@ -91,6 +95,17 @@ export const CONFIG = {
             CLASS: 'Clase',
             // Note: Instructor fields are dynamic and prefixed with "Asistencia - "
             INSTRUCTOR_PREFIX: 'Asistencia - '
+        }
+    },
+    // 5. MODIFY SCHEDULE SETTINGS
+    MODIFY: {
+        SHEET_NAME: 'Cambios',
+        FIELDS: {
+            USER: 'Nombre',
+            OLD_CLASS: 'Clase Actual',
+            NEW_DATE: 'Nueva Fecha',
+            NEW_TIME: 'Nuevo Horario',
+            NEW_INSTRUCTOR: 'Nuevo Instructor'
         }
     }
 };

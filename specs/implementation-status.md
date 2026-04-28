@@ -10,7 +10,7 @@ This document tracks the implementation status of features defined in the [Desig
 | `f_new_user_payment` | New User Payment | **Implemented** | `onPaymentSubmit` calculates expiry and creates calendar events. |
 | `f_admin_initial_schedule` | Initial Schedule Assignment | **Missing** | No handler or logic implemented in the codebase yet. |
 | `f_admin_attendance` | Class Attendance | **Missing (Spec Ready)** | Form specification and configuration added. Handler logic not yet implemented. |
-| `f_admin_modify_schedule` | Modify User Schedule | **Missing** | No handler or logic implemented in the codebase yet. |
+| `f_admin_modify_schedule` | Modify User Schedule | **Missing (Spec Ready)** | Form specification and configuration added. Handler logic not yet implemented. |
 | `f_date_parsing` | Flexible Date Parsing | **Implemented** | Handled within specific handlers using regex splitters. |
 
 ---
@@ -40,8 +40,8 @@ This document tracks the implementation status of features defined in the [Desig
 ### 4. Missing Administration Features
 The following administration-focused features from the spec are not yet present in the `src/` directory:
 - `f_admin_initial_schedule` (`onScheduleSubmit`, `checkCapacity`)
-- `f_admin_attendance` (`onAttendanceSubmit`, `deductCredits`)
-- `f_admin_modify_schedule` (`onModifyScheduleSubmit`)
+- `f_admin_attendance` (`onAttendanceSubmit`, `deductCredits`) - **Spec Ready**
+- `f_admin_modify_schedule` (`onModifyScheduleSubmit`) - **Spec Ready**
 
 ## Execution Workflow Status
 - **Router**: `masterFormRouter` is fully implemented and correctly delegates to Payments and Users handlers.

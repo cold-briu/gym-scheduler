@@ -152,3 +152,29 @@
     - README.md
     - specs/implementation-status.md
     - INSTALLATION.md
+- date: "2026-04-27T23:10:00-05:00"
+  description: "Created 'modify schedule' (cambios) form specification in specs/form-fields.yaml, supporting a 1-to-1 class swap workflow. Updated design-spec.yaml, execution-workflow.yaml, src/config.js, src/schemas.js, README.md, and implementation-status.md to reflect the new feature specification."
+  files_modified:
+    - specs/form-fields.yaml
+    - specs/design-spec.yaml
+    - specs/execution-workflow.yaml
+    - src/config.js
+    - src/schemas.js
+    - README.md
+    - specs/implementation-status.md
+- date: "2026-04-27T23:11:00-05:00"
+  description: "Updated 'modify schedule' (cambios) specification to include a specific class date field ('Fecha de Clase Actual'). This enables admins to modify specific class sessions (incidences) without affecting the recurring schedule. Updated form-fields.yaml, design-spec.yaml, schemas.js, config.js, and execution-workflow.yaml."
+  files_modified:
+    - specs/form-fields.yaml
+    - specs/design-spec.yaml
+    - src/schemas.js
+    - src/config.js
+    - specs/execution-workflow.yaml
+- date: "2026-04-27T23:13:00-05:00"
+  description: "Refined 'modify schedule' (cambios) form specification. 'Clase Actual' is now a single dropdown containing date/time/instructor info (e.g., 'Miércoles mayo 02 : 14-16 - Instructor A'). The replacement class selection is now split into three fields: 'Nueva Fecha', 'Nuevo Horario', and 'Nuevo Instructor'. Updated form-fields.yaml, design-spec.yaml, schemas.js, config.js, and execution-workflow.yaml."
+  files_modified:
+    - specs/form-fields.yaml
+    - specs/design-spec.yaml
+    - src/schemas.js
+    - src/config.js
+    - specs/execution-workflow.yaml

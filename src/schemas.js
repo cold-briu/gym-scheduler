@@ -32,6 +32,15 @@
  */
 
 /**
+ * @typedef {Object} ModifyScheduleData
+ * @property {string} user_id
+ * @property {string} old_class_info
+ * @property {string} new_class_date
+ * @property {string} new_class_time
+ * @property {string} new_class_instructor
+ */
+
+/**
  * @typedef {Object} AttendanceData
  * @property {string} class_id - The ID or name of the class slot.
  * @property {string[]} presentUsers - List of students marked as present.
