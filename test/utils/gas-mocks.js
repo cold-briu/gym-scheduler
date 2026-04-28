@@ -30,7 +30,7 @@ export const FormAppMock = {
     openById: jest.fn().mockImplementation((id) => ({
         getItems: jest.fn().mockReturnValue([
             {
-                getTitle: jest.fn().mockReturnValue("Nombre del Miembro"), // Matches CONFIG.PAYMENTS.DROPDOWN_TITLE typically
+                getTitle: jest.fn().mockReturnValue("nombre"), // Matches CONFIG.PAYMENTS.DROPDOWN_TITLE typically
                 asListItem: jest.fn().mockImplementation(() => ({
                     setChoiceValues: jest.fn(),
                 })),

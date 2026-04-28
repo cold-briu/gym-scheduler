@@ -13,3 +13,19 @@
   description: "Created gas-mocks.js under test/utils/ to mock Google Apps Script native objects (CalendarApp, Utilities, SpreadsheetApp, FormApp) for the onMemberSignup execution test."
   files_modified:
     - test/utils/gas-mocks.js
+
+- date: "2026-04-27T20:55:00-05:00"
+  description: "Created unit tests for onMemberSignup in test/handlers.test.js."
+  files_modified:
+    - test/handlers.test.js
+
+- date: "2026-04-27T21:01:00-05:00"
+  description: "Updated gas-mocks.js to align getTitle mock with CONFIG and expanded handlers.test.js to fully test updateMemberDropdown execution logic."
+  files_modified:
+    - test/utils/gas-mocks.js
+    - test/handlers.test.js
+
+- date: "2026-04-27T21:12:18-05:00"
+  description: "Created agents/code-reviews.yaml to document the code review analysis for test/handlers.test.js."
+  files_modified:
+    - agents/code-reviews.yaml

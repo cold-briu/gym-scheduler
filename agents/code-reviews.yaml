@@ -1,0 +1,20 @@
+code_reviews:
+  - file: "test/handlers.test.js"
+    date: "2026-04-27T21:12:18-05:00"
+    critical_blind_spots:
+      - issue: "Missing Date & Parameter Assertions"
+        description: "The assertions only verify the title of the created events. They completely ignore the actual date object, the recurrence rule, and the event description. If the handler miscalculates the date or fails to parse the string correctly, the test will still pass."
+      - issue: "Accidental Integration Testing"
+        description: "By importing the real updateMemberDropdown function and assigning it to global.updateMemberDropdown, the test evaluates two functions at once. Assertions against SpreadsheetAppMock and FormAppMock validate side effects of updateMemberDropdown rather than onMemberSignup."
+      - issue: "Hardcoded 'Magic' Data"
+        description: "The test checks for specific strings like 'Juan Perez' and ['Mock Member 1', 'Mock Member 2'], coupling it to arbitrary default values in mock objects instead of dynamically deriving them from the mock event object."
+    structural_and_design_flaws:
+      - issue: "Brittle Mock Traversal"
+        description: "Navigating mock history via .mock.results[0].value is fragile. If the handler fails to call a method, the test crashes with a confusing TypeError instead of providing a helpful Jest assertion failure."
+      - issue: "Overstuffed 'God Test'"
+        description: "A single it() block tests the entire workflow, including dropdown synchronization, birthday event scheduling, and anniversary event scheduling. These should be split into isolated blocks."
+    code_coverage_gaps:
+      - issue: "No 'Missing Data' Coverage"
+        description: "The handler branches on userData.birthdayString, but no tests verify what happens when a form is submitted without a birthday."
+      - issue: "No Error Path Coverage"
+        description: "The handler uses try/catch blocks and conditional validation, yet none of the failure states (e.g., calendar not found, invalid birthday format) are tested."
