@@ -26,17 +26,6 @@ execution_workflow:
         - action: "Create Calendar Events"
           description: "Fetches the main calendar and creates a recurring 'Birthday' event and a single 'Anniversary' event scheduled for 1 year ahead."
 
-    - condition: "sheetName === CONFIG.SCHEDULE.SHEET_NAME ('Horarios' or similar)"
-      handler: "onScheduleSubmit(e)"
-      description: "Handles class schedule assignments."
-      sequence:
-        - function: "getFieldValue(event, CONFIG.SCHEDULE.FIELDS, key)"
-          description: "Extracts schedule details from the form submission."
-        - function: "checkCapacity(class_id)"
-          description: "Consults the 'Horarios' constant sheet to verify available spots."
-        - action: "Create Calendar Events"
-          description: "Schedules class sessions in the calendar."
-
     - condition: "default"
       action: "Log Warning"
       description: "If the sheet is neither Payments nor Users, logs a warning indicating an unknown sheet submission."
