@@ -9,7 +9,7 @@ execution_workflow:
       description: "Handles new payment entries."
       sequence:
         - function: "getFieldValue(event, CONFIG.PAYMENTS.FIELDS, key)"
-          description: "Extracts payment details (Name, Value, Duration, Method, Start Date) safely from the form submission."
+          description: "Extracts payment details (Name, Value, Membership Type, Method, Start Date) safely from the form submission."
         - action: "Parse & Calculate Dates"
           description: "Calculates the expiry date based on duration and a reminder date (default 7 days prior)."
         - action: "Create Calendar Events"

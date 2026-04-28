@@ -8,7 +8,7 @@ export function onPaymentSubmit(event) {
         const paymentData = {
             [CONFIG.DB_MAPPING['nombre']]: getFieldValue(event, CONFIG.PAYMENTS.FIELDS, 'NAME'),
             [CONFIG.DB_MAPPING['valor']]: getFieldValue(event, CONFIG.PAYMENTS.FIELDS, 'VALUE'),
-            membershipType: getFieldValue(event, CONFIG.PAYMENTS.FIELDS, 'DURATION'),
+            [CONFIG.DB_MAPPING['tipo de membresía']]: toSlug(getFieldValue(event, CONFIG.PAYMENTS.FIELDS, 'MEMBERSHIP_TYPE')),
             [CONFIG.DB_MAPPING['metodo']]: getFieldValue(event, CONFIG.PAYMENTS.FIELDS, 'METHOD'),
             [CONFIG.DB_MAPPING['fechaInicio']]: getFieldValue(event, CONFIG.PAYMENTS.FIELDS, 'START_DATE')
         };
@@ -18,7 +18,7 @@ export function onPaymentSubmit(event) {
         const startDate = new Date(dateParts[2], dateParts[1] - 1, dateParts[0]);
 
         // Calculate Expiry
-        const monthDuration = CONFIG.MEMBERSHIP_DURATION_MONTHS[paymentData.membershipType];
+        const monthDuration = CONFIG.MEMBERSHIP_TYPE_MONTHS[paymentData.membershipType];
 
         if (monthDuration) {
             const expiryDate = new Date(startDate);
@@ -70,7 +70,7 @@ export function onMemberSignup(event) {
             [CONFIG.DB_MAPPING['nombre']]: getFieldValue(event, CONFIG.USERS.FIELDS, 'NAME'),
             [CONFIG.DB_MAPPING['correo']]: getFieldValue(event, CONFIG.USERS.FIELDS, 'EMAIL'),
             [CONFIG.DB_MAPPING['telefono']]: getFieldValue(event, CONFIG.USERS.FIELDS, 'PHONE'),
-            birthdayString: getFieldValue(event, CONFIG.USERS.FIELDS, 'BIRTHDAY'),
+            [CONFIG.DB_MAPPING['cumpleaños']]: getFieldValue(event, CONFIG.USERS.FIELDS, 'BIRTHDAY'),
             signupDateFormatted: Utilities.formatDate(today, CONFIG.TIMEZONE, "dd/MM/yyyy")
         };
 

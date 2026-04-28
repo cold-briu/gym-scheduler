@@ -54,7 +54,7 @@ features:
         field_mapping:
           Nombre: nombre
           Valor: valor
-          Duracion: duracionRaw
+          Tipo de membresía: tipo de membresía
           Metodo: metodo
           Fecha de inicio: fechaInicioStr
       validation: Requires valid date format for Fecha de inicio, else skips scheduling

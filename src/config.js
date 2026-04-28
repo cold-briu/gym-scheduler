@@ -11,12 +11,14 @@ export const CONFIG = {
         'nombre': 'name',
         'valor': 'value',
         'metodo': 'method',
+        'tipo de membresía': 'membershipType',
         'fechaInicio': 'startDate',
         'correo': 'email',
-        'telefono': 'phone'
+        'telefono': 'phone',
+        'cumpleaños': 'birthdayString'
     },
 
-    MEMBERSHIP_DURATION_MONTHS: {
+    MEMBERSHIP_TYPE_MONTHS: {
         'mensualidad': 1,
         'mensualidad_dirigida': 1,
         'trimestre_mensualidad': 3,
@@ -32,7 +34,7 @@ export const CONFIG = {
         FIELDS: {
             NAME: 'Nombre',
             VALUE: 'Valor',
-            DURATION: 'Duracion',
+            MEMBERSHIP_TYPE: 'Tipo de membresía',
             METHOD: 'Metodo',
             START_DATE: 'Fecha de inicio'
         },

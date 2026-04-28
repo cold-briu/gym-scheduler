@@ -14,3 +14,17 @@ export function getFieldValue(event, fieldMapping, key) {
 
     return event.namedValues[actualKeyInResponse][0];
 }
+
+/**
+ * Normalizes Spanish text to slugs compatible with MembershipType enum.
+ * Example: "Día de Escalada" -> "dia_de_escalada"
+ */
+export function toSlug(text) {
+    if (!text) return "";
+    return text.toString()
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]+/g, '_')
+        .replace(/^_+|_+$/g, '');
+}

@@ -35,4 +35,39 @@
   files_modified:
     - src/handlers.js
     - test/handlers.test.js
+    
+- date: "2026-04-27T21:42:00-05:00"
+  description: "Updated agents/instructions.agent.md to include strict guidelines against unrequested test manipulation and to require detailed technical explanations for test failures."
+  files_modified:
+    - agents/instructions.agent.md
+
+- date: "2026-04-27T21:45:00-05:00"
+  description: "Updated handlers to align with PaymentData schema. Added toSlug utility in src/utils.js to normalize Spanish form values to membershipType slugs. Expanded CONFIG.DB_MAPPING in src/config.js to include all schema fields."
+  files_modified:
+    - src/utils.js
+    - src/config.js
+    - src/handlers.js
+
+- date: "2026-04-27T21:48:00-05:00"
+  description: "Renamed 'Duracion' form field and sheet column to 'Tipo de membresía' across config, handlers, and documentation."
+  files_modified:
+    - src/config.js
+    - src/handlers.js
+    - design-spec.yaml
+    - execution-workflow.yaml
+
+- date: "2026-04-27T21:51:00-05:00"
+  description: "Renamed internal config keys from 'DURATION' to 'MEMBERSHIP_TYPE' and 'MEMBERSHIP_DURATION_MONTHS' to 'MEMBERSHIP_TYPE_MONTHS' to align with project naming conventions."
+  files_modified:
+    - src/config.js
+    - src/handlers.js
+
+- date: "2026-04-27T21:52:00-05:00"
+  description: "Created mockPaymentEvent in test/mock-data/data.js to facilitate testing of the payment submission workflow."
+  files_modified:
+    - test/mock-data/data.js
+
+- date: "2026-04-27T21:53:00-05:00"
+  description: "Updated membership type in mockPaymentEvent to 'trimestre_mensualidad' to align with specific test requirements."
+  files_modified:
     - test/mock-data/data.js
