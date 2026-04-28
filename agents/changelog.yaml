@@ -8,3 +8,8 @@
   files_modified:
     - agents/instructions.agent.md
     - agents/changelog.yaml
+
+- date: "2026-04-27T20:50:47-05:00"
+  description: "Created gas-mocks.js under test/utils/ to mock Google Apps Script native objects (CalendarApp, Utilities, SpreadsheetApp, FormApp) for the onMemberSignup execution test."
+  files_modified:
+    - test/utils/gas-mocks.js
