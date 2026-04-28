@@ -1,0 +1,10 @@
+- date: "2026-04-27T20:38:00-05:00"
+  description: "Updated agents/instructions.agent.md to include a new guideline that requires agents to log any changes they make into this changelog.yaml file."
+  files_modified:
+    - agents/instructions.agent.md
+
+- date: "2026-04-27T20:39:22-05:00"
+  description: "Moved changelog to agents/changelog.yaml and updated the change logging instruction path."
+  files_modified:
+    - agents/instructions.agent.md
+    - agents/changelog.yaml
