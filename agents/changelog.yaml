@@ -85,3 +85,14 @@
     - test/utils/gas-mocks.js
     - test/member-signup.handler.test.js
     - test/payment.handler.test.js
+
+- date: "2026-04-27T22:04:00-05:00"
+  description: "Created 'specs' directory at root and moved 'design-spec.yaml' and 'execution-workflow.yaml' into it for better project organization."
+  files_modified:
+    - specs/design-spec.yaml
+    - specs/execution-workflow.yaml
+
+- date: "2026-04-27T22:05:00-05:00"
+  description: "Created specs/implementation-status.md to map specification features to the current codebase state, identifying implemented, partial, and missing features."
+  files_modified:
+    - specs/implementation-status.md
