@@ -1,7 +1,7 @@
 import { onMemberSignup } from '../src/handlers.js';
 import { CONFIG } from '../src/config.js';
 import { getFieldValue } from '../src/utils.js';
-import { setupGasMocks, CalendarAppMock } from './utils/gas-mocks.js';
+import { setupGasMocks, CalendarAppMock, MockCalendar } from './utils/gas-mocks.js';
 import { mockMemberSignupEvent } from './mock-data/data.js';
 
 describe('onMemberSignup', () => {
@@ -19,8 +19,8 @@ describe('onMemberSignup', () => {
         jest.spyOn(console, 'warn').mockImplementation(() => {});
         jest.spyOn(console, 'error').mockImplementation(() => {});
 
-        // Pre-fetch the mock calendar that will be returned
-        mockCalendar = CalendarAppMock.getCalendarById.mock.results[0].value;
+        // Use the centralized mock calendar
+        mockCalendar = MockCalendar;
     });
 
     afterEach(() => {
@@ -63,9 +63,8 @@ describe('onMemberSignup', () => {
         
         // 3. Recurrence Rule
         expect(CalendarAppMock.newRecurrence).toHaveBeenCalled();
-        const recurrenceMock = CalendarAppMock.newRecurrence.mock.results[0].value;
-        const yearlyRule = recurrenceMock.addYearlyRule.mock.results[0].value;
-        expect(createCall[2]).toBe(yearlyRule);
+        expect(createCall[2]).toBeDefined();
+        expect(createCall[2].addYearlyRule).toHaveBeenCalled();
         
         // 4. Options (Description)
         expect(createCall[3]).toEqual({

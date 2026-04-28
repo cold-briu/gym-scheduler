@@ -1,8 +1,14 @@
+/**
+ * SHARED CALENDAR MOCK
+ * Centralized to ensure consistent behavior across all handler tests.
+ */
+export const MockCalendar = {
+    createAllDayEventSeries: jest.fn(),
+    createAllDayEvent: jest.fn(),
+};
+
 export const CalendarAppMock = {
-    getCalendarById: jest.fn().mockImplementation(() => ({
-        createAllDayEventSeries: jest.fn(),
-        createAllDayEvent: jest.fn(),
-    })),
+    getCalendarById: jest.fn().mockReturnValue(MockCalendar),
     newRecurrence: jest.fn().mockImplementation(() => ({
         addYearlyRule: jest.fn().mockReturnThis(),
     })),
@@ -10,7 +16,6 @@ export const CalendarAppMock = {
 
 export const UtilitiesMock = {
     formatDate: jest.fn().mockImplementation((date, timezone, format) => {
-        // Return a mock date string
         return "01/01/2026";
     }),
 };
@@ -30,7 +35,7 @@ export const FormAppMock = {
     openById: jest.fn().mockImplementation((id) => ({
         getItems: jest.fn().mockReturnValue([
             {
-                getTitle: jest.fn().mockReturnValue("nombre"), // Matches CONFIG.PAYMENTS.DROPDOWN_TITLE typically
+                getTitle: jest.fn().mockReturnValue("nombre"),
                 asListItem: jest.fn().mockImplementation(() => ({
                     setChoiceValues: jest.fn(),
                 })),
@@ -39,8 +44,16 @@ export const FormAppMock = {
     })),
 };
 
-// Also good practice to provide a setup function to inject these into global scope
+/**
+ * SETUP GAS MOCKS
+ * Resets all calls and injects mocks into the global scope.
+ */
 export const setupGasMocks = () => {
+    jest.clearAllMocks();
+    
+    // Ensure default behavior is restored (in case a test used .mockReturnValueOnce)
+    CalendarAppMock.getCalendarById.mockReturnValue(MockCalendar);
+
     global.CalendarApp = CalendarAppMock;
     global.Utilities = UtilitiesMock;
     global.SpreadsheetApp = SpreadsheetAppMock;

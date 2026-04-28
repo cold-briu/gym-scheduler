@@ -71,3 +71,17 @@
   description: "Updated membership type in mockPaymentEvent to 'trimestre_mensualidad' to align with specific test requirements."
   files_modified:
     - test/mock-data/data.js
+
+- date: "2026-04-27T21:55:00-05:00"
+  description: "Split test/handlers.test.js into test/member-signup.handler.test.js and test/payment.handler.test.js for better isolation. Implemented comprehensive unit tests for onPaymentSubmit, including calendar event creation and date parsing logic. Fixed brittle mock reference issues in handler tests by explicitly defining mock objects in beforeEach hooks."
+  files_modified:
+    - test/handlers.test.js
+    - test/member-signup.handler.test.js
+    - test/payment.handler.test.js
+
+- date: "2026-04-27T22:00:00-05:00"
+  description: "Centralized calendar mocking logic into test/utils/gas-mocks.js. Created a stable MockCalendar object and updated setupGasMocks to handle automatic call resets and default return value injection. Refactored handler tests to remove manual mock initialization, reducing boilerplate and ensuring consistent behavior across the test suite."
+  files_modified:
+    - test/utils/gas-mocks.js
+    - test/member-signup.handler.test.js
+    - test/payment.handler.test.js
