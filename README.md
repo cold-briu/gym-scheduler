@@ -1,25 +1,59 @@
-# gym-scheduler
-Google Apps Script Gym Scheduler
+# Gym Scheduler
+
+Google Apps Script Gym Scheduler for member management, payments, and class scheduling.
 
 ## Project Overview
-This repository contains the codebase and technical specifications for the Gym Schedule System, a backend management tool utilizing Google Apps Script, Google Sheets, and Google Forms.
+This repository contains the codebase and technical specifications for the Gym Schedule System, a backend management tool utilizing Google Apps Script, Google Sheets, and Google Forms. The project is designed with a modular architecture, enabling local development, automated testing, and a build process for deployment to Google Workspace.
 
-## Core Files Documentation
+## Project Status
+The system is currently in active development.
 
-### `package.json`
-The configuration file for this Node.js project. It defines the project metadata, entry point (`src/index.js`), and available npm scripts. The primary script provided is `npm run build`, which triggers the custom build process.
+- **Implemented**: New User Registration (Partial), New User Payment, Flexible Date Parsing.
+- **Pending**: Initial Schedule Assignment, Class Attendance, Modify User Schedule.
 
-### `design-spec.yaml`
-The central Software Design Document (SDD) defining the system's architecture, functional requirements, and implementation details. It outlines how different Google Workspace services interact and specifies workflows for features such as:
-- New User Registration
-- New User Payment
-- Initial Schedule Assignment
-- Class Attendance
-- User Schedule Modification
-- Flexible Date Parsing
+For a detailed breakdown of feature implementation, see [Implementation Status](specs/implementation-status.md).
 
-### `build.js`
-A custom Node.js build script designed to prepare the modular codebase for Google Apps Script deployment. When executed, it scans the `src` directory and concatenates all `.js` files into a single, consolidated `bundles.js` file within the `out` directory.
+## Directory Structure
+```text
+.
+├── agents/             # Agent instructions and changelogs
+├── out/                # Bundled output for GAS deployment
+├── scripts/            # Build and utility scripts
+├── specs/              # Technical specifications and design docs
+├── src/                # Modular source code
+│   ├── config.js       # System configuration and mappings
+│   ├── handlers.js     # Event handlers (Signup, Payment)
+│   ├── routers.js      # Form submission routing
+│   └── utils.js        # Shared utility functions
+└── test/               # Jest test suite and GAS mocks
+```
 
-### `src/index.js`
-The primary entry module for the source code. It gathers and exports core components from the modular files—including `CONFIG`, utilities (`getFieldValue`), functions (`updateMemberDropdown`), routing logic (`masterFormRouter`), and event handlers (`onPaymentSubmit`, `onMemberSignup`). This establishes a unified interface for the application.
+## Documentation & Specs
+
+### [Design Specification](specs/design-spec.yaml)
+Defines the system architecture, functional requirements, and data schemas for Google Workspace integration.
+
+### [Execution Workflow](specs/execution-workflow.yaml)
+Maps the functional flow from form submission triggers through routing and handling.
+
+### [Implementation Status](specs/implementation-status.md)
+Tracks the progress of mapping specifications to implemented code.
+
+## Development
+
+### Building for Deployment
+The project uses a custom build script to bundle modular JavaScript files into a format compatible with Google Apps Script.
+```bash
+npm run build
+```
+Output is generated in `out/bundle.js`.
+
+### Testing
+A comprehensive test suite is implemented using Jest, featuring mocks for Google Apps Script native objects (`CalendarApp`, `SpreadsheetApp`, etc.).
+```bash
+npm test
+```
+Tests are located in the `test/` directory, with isolated unit tests for core handlers.
+
+## Changelog
+Significant changes and agent modifications are tracked in [changelog.yaml](agents/changelog.yaml).
