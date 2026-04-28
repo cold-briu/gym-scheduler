@@ -1,0 +1,41 @@
+event_type: Spreadsheet Form Submit
+trigger_source: Google Sheets
+event_object_definition:
+  authMode:
+    type: Enum
+    description: The script's authorization mode (ScriptApp.AuthMode).
+    example: FULL
+  range:
+    type: Range
+    description: A Google Apps Script Range object representing the row where the response was added.
+    properties:
+      - getRow()
+      - getLastColumn()
+      - getSheet()
+  source:
+    type: Spreadsheet
+    description: The Spreadsheet object that the script is bound to.
+  values:
+    type: Array<String>
+    description: An ordered array of strings representing the row values. Index 0 is always the Timestamp.
+    example:
+      - "2026-04-28 03:15:00"
+      - user@example.com
+      - Option A
+  namedValues:
+    type: Object
+    description: A dictionary where keys are the column headers and values are arrays containing the submitted data.
+    example:
+      Timestamp:
+        - "2026-04-28 03:15:00"
+      Email Address:
+        - user@example.com
+      Choice:
+        - Option A
+  triggerUid:
+    type: String
+    description: The unique ID of the installable trigger that executed the function.
+context_from_image:
+  target_function: masterFormRouter
+  event_source: From spreadsheet (Desde la hoja de cálculo)
+  event_type: On form submit (Al enviar el formulario)

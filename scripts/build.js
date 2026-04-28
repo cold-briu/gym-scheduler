@@ -1,8 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
-const srcDir = path.join(__dirname, 'src');
-const outDir = path.join(__dirname, 'out');
+const srcDir = path.join(__dirname, '..', 'src');
+const outDir = path.join(__dirname, '..', 'out');
 const outFile = path.join(outDir, 'bundles.js');
 
 function bundle() {
@@ -12,20 +12,31 @@ function bundle() {
   }
 
   try {
-    // Read all files from src directory
-    const files = fs.readdirSync(srcDir);
+    // 4. functions are presented in order of execution based on execution-workflow.yaml
+    // Note: src/index.js is excluded from this list.
+    const fileOrder = [
+      'config.js',
+      'schemas.js',
+      'routers.js',     // masterFormRouter
+      'handlers.js',    // onPaymentSubmit, onMemberSignup
+      'utils.js',       // getFieldValue
+      'functions.js'    // updateMemberDropdown
+    ];
+
     let bundledContent = '';
     let count = 0;
 
-    for (const file of files) {
-      if (path.extname(file) === '.js') {
-        const filePath = path.join(srcDir, file);
+    for (const file of fileOrder) {
+      const filePath = path.join(srcDir, file);
+      if (fs.existsSync(filePath)) {
         const content = fs.readFileSync(filePath, 'utf-8');
         
         bundledContent += `// --- File: ${file} ---\n`;
         bundledContent += content;
         bundledContent += '\n\n';
         count++;
+      } else {
+        console.warn(`Warning: ${file} not found in src directory.`);
       }
     }
 

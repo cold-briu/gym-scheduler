@@ -1,0 +1,31 @@
+execution_workflow:
+  trigger: "On form submit"
+  entry_point: "masterFormRouter(e)"
+  description: "The master router serves as the single entry point for all form submissions. It identifies the target sheet and delegates the event to the appropriate handler."
+  
+  routes:
+    - condition: "sheetName === CONFIG.PAYMENTS.SHEET_NAME ('Pagos')"
+      handler: "onPaymentSubmit(e)"
+      description: "Handles new payment entries."
+      sequence:
+        - function: "getFieldValue(event, CONFIG.PAYMENTS.FIELDS, key)"
+          description: "Extracts payment details (Name, Value, Duration, Method, Start Date) safely from the form submission."
+        - action: "Parse & Calculate Dates"
+          description: "Calculates the expiry date based on duration and a reminder date (default 7 days prior)."
+        - action: "Create Calendar Events"
+          description: "Fetches the main calendar and creates 'Expiry' and 'Reminder' all-day events for the payment."
+
+    - condition: "sheetName === CONFIG.USERS.SHEET_NAME ('Usuarios')"
+      handler: "onMemberSignup(e)"
+      description: "Handles new user registrations."
+      sequence:
+        - function: "getFieldValue(event, CONFIG.USERS.FIELDS, key)"
+          description: "Extracts user details (Name, Email, Phone, Birthday) safely from the form submission."
+        - function: "updateMemberDropdown()"
+          description: "Reads all members from the 'Usuarios' sheet and updates the dropdown list in the Payments Form to keep it synchronized."
+        - action: "Create Calendar Events"
+          description: "Fetches the main calendar and creates a recurring 'Birthday' event and a single 'Anniversary' event scheduled for 1 year ahead."
+
+    - condition: "default"
+      action: "Log Warning"
+      description: "If the sheet is neither Payments nor Users, logs a warning indicating an unknown sheet submission."
