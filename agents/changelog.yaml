@@ -100,3 +100,18 @@
   description: "Updated README.md to reflect current project status, including implementation progress, directory reorganization, and testing instructions."
   files_modified:
     - README.md
+
+- date: "2026-04-27T22:11:00-05:00"
+  description: "Created INSTALLATION.md containing comprehensive setup instructions for Google Sheets, Google Forms, project building, and manual deployment to Google Apps Script."
+  files_modified:
+    - INSTALLATION.md
+
+- date: "2026-04-27T22:12:30-05:00"
+  description: "Revised INSTALLATION.md to reflect a Form-first workflow, clarifying that linked spreadsheet columns are automatically generated and sheet tabs must be renamed to match the configuration."
+  files_modified:
+    - INSTALLATION.md
+
+- date: "2026-04-27T22:15:00-05:00"
+  description: "Updated INSTALLATION.md to specify exact membership types and method options for Google Forms, removing vague terminology like 'etc' and 'e.g.' to ensure configuration alignment."
+  files_modified:
+    - INSTALLATION.md
