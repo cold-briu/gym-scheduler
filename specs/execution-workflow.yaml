@@ -26,6 +26,17 @@ execution_workflow:
         - action: "Create Calendar Events"
           description: "Fetches the main calendar and creates a recurring 'Birthday' event and a single 'Anniversary' event scheduled for 1 year ahead."
 
+    - condition: "sheetName === CONFIG.ATTENDANCE.SHEET_NAME ('Asistencia')"
+      handler: "onAttendanceSubmit(e)"
+      description: "Handles class attendance logging."
+      sequence:
+        - function: "getFieldValue(event, CONFIG.ATTENDANCE.FIELDS, key)"
+          description: "Extracts attendance data (Class ID, Present Users per instructor) from the multi-page form submission."
+        - function: "deductCredits(user_id)"
+          description: "Reduces the balance for each attendee marked as present."
+        - action: "Append to Sheet"
+          description: "Records the date, class, and attendance list in the 'Asistencia' sheet."
+
     - condition: "default"
       action: "Log Warning"
       description: "If the sheet is neither Payments nor Users, logs a warning indicating an unknown sheet submission."

@@ -32,6 +32,12 @@
  */
 
 /**
+ * @typedef {Object} AttendanceData
+ * @property {string} class_id - The ID or name of the class slot.
+ * @property {string[]} presentUsers - List of students marked as present.
+ */
+
+/**
  * Enum for Membership Types
  * @readonly
  * @enum {string}

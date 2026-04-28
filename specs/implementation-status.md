@@ -9,7 +9,7 @@ This document tracks the implementation status of features defined in the [Desig
 | `f_new_user` | New User Registration | **Partial** | `onMemberSignup` implemented with Birthday/Anniversary events and dropdown sync. Validation for duplicate emails is missing. |
 | `f_new_user_payment` | New User Payment | **Implemented** | `onPaymentSubmit` calculates expiry and creates calendar events. |
 | `f_admin_initial_schedule` | Initial Schedule Assignment | **Missing** | No handler or logic implemented in the codebase yet. |
-| `f_admin_attendance` | Class Attendance | **Missing** | No handler or logic implemented in the codebase yet. |
+| `f_admin_attendance` | Class Attendance | **Missing (Spec Ready)** | Form specification and configuration added. Handler logic not yet implemented. |
 | `f_admin_modify_schedule` | Modify User Schedule | **Missing** | No handler or logic implemented in the codebase yet. |
 | `f_date_parsing` | Flexible Date Parsing | **Implemented** | Handled within specific handlers using regex splitters. |
 

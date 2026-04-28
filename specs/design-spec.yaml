@@ -94,7 +94,10 @@ features:
     description:
       actor: Admin
       trigger: Form submission (Sheet matching CONFIG.ATTENDANCE.SHEET_NAME)
-      action: Record attendance and update credit
+      action: Record attendance per instructor and update user credits
+      structure:
+        - page_1: "Class Router: Dropdown selection with 'Go to section based on answer' logic."
+        - page_2_plus: "Instructor Attendance Grid: One Checkbox Grid per instructor in that class. Rows are student names; column is 'Asistió'."
       functions_used:
         - onAttendanceSubmit(event): Core attendance handler
         - deductCredits(user_id): Reduces user's available class credits
@@ -104,13 +107,11 @@ features:
         config_reference: CONFIG.ATTENDANCE
         field_mapping:
           Clase: class_id
-          Fecha: date
-          Asistentes: present_users
+          "Asistencia - [Instructor Name]": present_users
       validation: Fails silently if user has zero remaining credits
       data:
         - class_id (dropdown)
-        - date
-        - present_users (checkboxes)
+        - present_users (checkbox grid per instructor)
     
   - id: f_admin_modify_schedule
     name: Modify User Schedule

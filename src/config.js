@@ -83,5 +83,14 @@ export const CONFIG = {
             AVAILABLE_SPOTS: 'Cupos Disponibles',
             ENROLLED: 'Inscritos'
         }
+    },
+    // 4. ATTENDANCE FORM SETTINGS
+    ATTENDANCE: {
+        SHEET_NAME: 'Asistencia',
+        FIELDS: {
+            CLASS: 'Clase',
+            // Note: Instructor fields are dynamic and prefixed with "Asistencia - "
+            INSTRUCTOR_PREFIX: 'Asistencia - '
+        }
     }
 };

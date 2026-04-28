@@ -8,8 +8,8 @@ This repository contains the codebase and technical specifications for the Gym S
 ## Project Status
 The system is currently in active development.
 
-- **Implemented**: New User Registration (Partial), New User Payment, Flexible Date Parsing.
-- **Pending**: Initial Schedule Assignment, Class Attendance, Modify User Schedule.
+- **Implemented**: New User Registration (Partial), New User Payment, Flexible Date Parsing, **Class Attendance (Spec only)**.
+- **Pending**: Initial Schedule Assignment, Class Attendance (Implementation), Modify User Schedule.
 
 For a detailed breakdown of feature implementation, see [Implementation Status](specs/implementation-status.md).
 

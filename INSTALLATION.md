@@ -39,8 +39,21 @@ The easiest way to set up the database is to create the **Google Forms** first a
 3. Go to the **Responses** tab, click **Link to Sheets**, and select the **Existing Spreadsheet** (**Gym Database**) created in the previous step.
 4. In the spreadsheet, rename the new tab (e.g., "Form Responses 2") to **`Pagos`**.
 
+### Form 3: Attendance (Asistencia)
+1. Create a third Google Form.
+2. Add the following questions:
+   - **Clase**: Dropdown. (Note: Automatically updated by script to include current class slots).
+   - **Asistencia - [Instructor]**: Checkbox Grid. 
+       - **Columns**: Exactly one column labeled `Asistió`.
+       - **Rows**: List of student names (Automatically pre-filled by script based on enrollment).
+3. Set up **Page Navigation**:
+   - Configure the **Clase** dropdown to "Go to section based on answer".
+   - Create sections for each class and add the corresponding instructor checkbox grids.
+4. Link the form to the **same spreadsheet** (**Gym Database**).
+5. In the spreadsheet, rename the new tab to **`Asistencia`**.
+
 > [!IMPORTANT]
-> The script identifies data based on the **Tab Name** (`Usuarios` and `Pagos`) and the **Column Headers** (which must match the question titles exactly). These field names are defined in the project's source of truth: [form-fields.yaml](specs/form-fields.yaml).
+> The script identifies data based on the **Tab Name** (`Usuarios`, `Pagos`, and `Asistencia`) and the **Column Headers** (which must match the question titles exactly). These field names are defined in the project's source of truth: [form-fields.yaml](specs/form-fields.yaml).
 
 ---
 

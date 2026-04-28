@@ -54,8 +54,19 @@ forms:
         options:
           - Transferencia
           - Efectivo
-      Fecha de inicio:
-        internal_key: startDate
-        type: Date
-        format: DD/MM/YYYY
-        description: Start date of the membership
+  asistencia:
+    sheet_name: Asistencia
+    fields:
+      Clase:
+        internal_key: class_id
+        type: Dropdown
+        description: "The Class Router (Page 1). Uses 'Go to section based on answer'. Choosing a class sends the Admin to its specific section."
+        options: "Dynamically populated from Horarios sheet"
+      "Asistencia - [Instructor]":
+        internal_key: present_users
+        type: Checkbox Grid
+        description: "The Instructor Attendance Grid (Page 2+). One per instructor available in the selected class."
+        columns:
+          - Asistió
+        rows: "Pre-filled/Restricted list of Student Names officially signed up for that specific instructor's class."
+        logic: "Updated via script based on 'Inscritos' in Horarios/Enrolled per Class sheet."
