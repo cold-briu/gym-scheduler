@@ -1,0 +1,150 @@
+# Design Specification
+system:
+  name: Gym Schedule System
+  architecture:
+    database: Google Sheets
+    backend: Google Apps Script
+    input_layer: Google Forms
+
+features:
+  - id: f_new_user
+    name: New User Registration
+    description:
+      actor: Admin
+      trigger: Form submission (Sheet matching CONFIG.USERS.SHEET_NAME)
+      action: Create user record and sync system state
+      functions_used:
+        - masterFormRouter(e): Relays submission based on sheet name
+        - onMemberSignup(event): Core registration handler
+        - getFieldValue(event, fieldMapping, key): Case-insensitive extraction
+        - updateMemberDropdown(): Syncs user name to payment form dropdown
+      api_calls:
+        - CalendarApp.createAllDayEventSeries: Schedules yearly birthday event
+        - CalendarApp.createAllDayEvent: Schedules 1-year anniversary event
+        - FormApp.openById: Updates payment form choice values
+      schemas:
+        config_reference: CONFIG.USERS
+        field_mapping:
+          Nombre: name
+          Correo: email
+          Telefono: phone
+          Cumpleaños: birthdayString
+      validation: Silently skips writing if email is duplicated
+      data:
+        - name
+        - email
+        - phone
+        - emergency_contact
+  
+  - id: f_new_user_payment
+    name: New User Payment
+    description:
+      actor: Admin
+      trigger: Form submission (Sheet matching CONFIG.PAYMENTS.SHEET_NAME)
+      action: Update payment status and schedule expiration
+      functions_used:
+        - masterFormRouter(e): Relays submission based on sheet name
+        - onPaymentSubmit(event): Core payment handler
+        - getFieldValue(event, fieldMapping, key): Case-insensitive extraction
+      api_calls:
+        - CalendarApp.createAllDayEvent: Schedules membership expiry event based on duration
+        - CalendarApp.createAllDayEvent: Schedules 7-day pre-expiry reminder event
+      schemas:
+        config_reference: CONFIG.PAYMENTS
+        field_mapping:
+          Nombre: nombre
+          Valor: valor
+          Duracion: duracionRaw
+          Metodo: metodo
+          Fecha de inicio: fechaInicioStr
+      validation: Requires valid date format for Fecha de inicio, else skips scheduling
+      data:
+        - user_id (dropdown)
+        - payment_amount
+        - credits_purchased
+      
+  - id: f_admin_initial_schedule
+    name: Initial Schedule Assignment
+    description:
+      actor: Admin
+      trigger: Form submission (Sheet matching CONFIG.SCHEDULE.SHEET_NAME)
+      action: Assign initial classes
+      functions_used:
+        - onScheduleSubmit(event): Core scheduling handler
+        - checkCapacity(class_id): Verifies available slots against limit
+      api_calls:
+        - CalendarApp.createEvent: Schedules individual class sessions
+      schemas:
+        config_reference: CONFIG.SCHEDULE
+        field_mapping:
+          Usuario: user_id
+          Clases: selected_classes
+      validation: Rejects assignment if selected class exceeds maximum participant capacity
+      data:
+        - user_id (dropdown)
+        - selected_classes
+        - available_capacity (calculated via active event attendee count)
+  
+  - id: f_admin_attendance
+    name: Class Attendance
+    description:
+      actor: Admin
+      trigger: Form submission (Sheet matching CONFIG.ATTENDANCE.SHEET_NAME)
+      action: Record attendance and update credit
+      functions_used:
+        - onAttendanceSubmit(event): Core attendance handler
+        - deductCredits(user_id): Reduces user's available class credits
+      api_calls:
+        - SpreadsheetApp.getRange.setValues: Appends attendance record to sheet
+      schemas:
+        config_reference: CONFIG.ATTENDANCE
+        field_mapping:
+          Clase: class_id
+          Fecha: date
+          Asistentes: present_users
+      validation: Fails silently if user has zero remaining credits
+      data:
+        - class_id (dropdown)
+        - date
+        - present_users (checkboxes)
+    
+  - id: f_admin_modify_schedule
+    name: Modify User Schedule
+    description:
+      actor: Admin
+      trigger: Form submission (Sheet matching CONFIG.MODIFY.SHEET_NAME)
+      action: Alter class bookings
+      functions_used:
+        - onModifyScheduleSubmit(event): Core modification handler
+      api_calls:
+        - CalendarApp.getEventById.deleteEvent: Cancels existing class reservation
+        - CalendarApp.createEvent: Schedules new replacement class
+      schemas:
+        config_reference: CONFIG.MODIFY
+        field_mapping:
+          Usuario: user_id
+          Agregar: classes_to_add
+          Remover: classes_to_remove
+      validation: Rejects removal if class is in the past; rejects addition if class is full
+      data:
+        - user_id (dropdown)
+        - classes_to_add
+        - classes_to_remove
+
+  - id: f_date_parsing
+    name: Flexible Date Parsing
+    description:
+      actor: System
+      trigger: Processing of form fields containing dates (e.g., START_DATE, BIRTHDAY)
+      action: Parses varying date input strings into valid Date objects by splitting on multiple delimiters and standardizing from a D/M/Y sequence.
+      functions_used:
+        - onPaymentSubmit(event): Parses start date to calculate expiration and reminders
+        - onMemberSignup(event): Parses birthday to schedule recurring yearly events
+      api_calls: []
+      schemas:
+        supported_delimiters: "[-/.]"
+        expected_format: "Day/Month/Year or Day/Month"
+      validation: Checks minimum array length (>= 2) and validates !isNaN(date.getTime()) before processing
+      data:
+        - input_date_string
+        - parsed_date_object
