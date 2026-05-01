@@ -1,11 +1,22 @@
+// Release: 0.6.0
 // --- File: config.js ---
+/**
+ * DEPLOYMENT IDs
+ * Easy access source of truth for IDs.
+ */
+const IDS = {
+    CALENDAR_ID: 'demo@group.calendar.google.com',
+    SIGNUP_FORM_ID: 'form-id-2',
+    PAYMENTS_FORM_ID: 'form-id'
+};
+
 /**
  * CONFIGURATION
  * Organized by form type for clarity.
  * Event Titles and Descriptions are now composed via functions.
  */
 const CONFIG = {
-    CALENDAR_ID: 'demo@group.calendar.google.com',
+    CALENDAR_ID: IDS.CALENDAR_ID,
     TIMEZONE: 'GMT-5',
 
     DB_MAPPING: {
@@ -38,8 +49,28 @@ const CONFIG = {
         'anualidad_mensualidad': 12
     },
 
+    // 1. USERS FORM SETTINGS
+    USERS: {
+        FORM_ID: IDS.SIGNUP_FORM_ID,
+        SHEET_NAME: 'Usuarios',
+        FIELDS: {
+            NAME: 'Nombre',
+            EMAIL: 'Correo',
+            BIRTHDAY: 'Cumpleaños',
+            PHONE: 'Telefono'
+        },
+        // Composition functions for User events
+        EVENTS: {
+            BIRTHDAY_TITLE: (data) => `🎈 Cumpleaños: ${data.name}`,
+            BIRTHDAY_DESC: () => ``,
+            ANNIVERSARY_TITLE: (data) => `🎊 Aniversario en 3M: ${data.name}`,
+            ANNIVERSARY_DESC: () => ``
+        }
+    },
+
+    // 2. PAYMENT FORM SETTINGS
     PAYMENTS: {
-        FORM_ID: 'form-id',
+        FORM_ID: IDS.PAYMENTS_FORM_ID,
         SHEET_NAME: 'Pagos',
         DROPDOWN_TITLE: 'nombre',
         REMINDER_DAYS: 7,
@@ -56,25 +87,6 @@ const CONFIG = {
             EXPIRY_DESC: (data) => `Inicio: ${data.startDate} | Tipo: ${data.membershipType}`,
             REMINDER_TITLE: (data) => `⏰ Vence en 7 días: ${data.name}`,
             REMINDER_DESC: (data) => `Inicio: ${data.startDate} | Tipo: ${data.membershipType}`
-        }
-    },
-
-    // 2. USERS FORM SETTINGS
-    USERS: {
-        FORM_ID: 'form-id-2',
-        SHEET_NAME: 'Usuarios',
-        FIELDS: {
-            NAME: 'Nombre',
-            EMAIL: 'Correo',
-            BIRTHDAY: 'Cumpleaños',
-            PHONE: 'Telefono'
-        },
-        // Composition functions for User events
-        EVENTS: {
-            BIRTHDAY_TITLE: (data) => `🎈 Cumpleaños: ${data.name}`,
-            BIRTHDAY_DESC: () => ``,
-            ANNIVERSARY_TITLE: (data) => `🎊 Aniversario en 3M: ${data.name}`,
-            ANNIVERSARY_DESC: () => ``
         }
     },
 
@@ -100,7 +112,7 @@ const CONFIG = {
             INSTRUCTOR: 'Instructor'
         }
     },
-    // 4. ATTENDANCE FORM SETTINGS
+    // 5. ATTENDANCE FORM SETTINGS
     ATTENDANCE: {
         SHEET_NAME: 'Asistencia',
         FIELDS: {
@@ -109,7 +121,7 @@ const CONFIG = {
             INSTRUCTOR_PREFIX: 'Asistencia - '
         }
     },
-    // 5. MODIFY SCHEDULE SETTINGS
+    // 6. MODIFY SCHEDULE SETTINGS
     MODIFY: {
         SHEET_NAME: 'Cambios',
         FIELDS: {

@@ -238,3 +238,7 @@
   files_modified:
     - scripts/log-deploy.js
     - deployments.yaml
+- date: "2026-05-01T11:13:40-05:00"
+  description: "Reordered IDS and CONFIG blocks in src/config.js to match the UX flow (Signup before Payment). Renumbered the configuration sections for clarity (1-6)."
+  files_modified:
+    - src/config.js

@@ -4,8 +4,8 @@
  */
 const IDS = {
     CALENDAR_ID: 'demo@group.calendar.google.com',
-    PAYMENTS_FORM_ID: 'form-id',
-    SIGNUP_FORM_ID: 'form-id-2'
+    SIGNUP_FORM_ID: 'form-id-2',
+    PAYMENTS_FORM_ID: 'form-id'
 };
 
 /**
@@ -47,6 +47,26 @@ export const CONFIG = {
         'anualidad_mensualidad': 12
     },
 
+    // 1. USERS FORM SETTINGS
+    USERS: {
+        FORM_ID: IDS.SIGNUP_FORM_ID,
+        SHEET_NAME: 'Usuarios',
+        FIELDS: {
+            NAME: 'Nombre',
+            EMAIL: 'Correo',
+            BIRTHDAY: 'Cumpleaños',
+            PHONE: 'Telefono'
+        },
+        // Composition functions for User events
+        EVENTS: {
+            BIRTHDAY_TITLE: (data) => `🎈 Cumpleaños: ${data.name}`,
+            BIRTHDAY_DESC: () => ``,
+            ANNIVERSARY_TITLE: (data) => `🎊 Aniversario en 3M: ${data.name}`,
+            ANNIVERSARY_DESC: () => ``
+        }
+    },
+
+    // 2. PAYMENT FORM SETTINGS
     PAYMENTS: {
         FORM_ID: IDS.PAYMENTS_FORM_ID,
         SHEET_NAME: 'Pagos',
@@ -65,25 +85,6 @@ export const CONFIG = {
             EXPIRY_DESC: (data) => `Inicio: ${data.startDate} | Tipo: ${data.membershipType}`,
             REMINDER_TITLE: (data) => `⏰ Vence en 7 días: ${data.name}`,
             REMINDER_DESC: (data) => `Inicio: ${data.startDate} | Tipo: ${data.membershipType}`
-        }
-    },
-
-    // 2. USERS FORM SETTINGS
-    USERS: {
-        FORM_ID: IDS.SIGNUP_FORM_ID,
-        SHEET_NAME: 'Usuarios',
-        FIELDS: {
-            NAME: 'Nombre',
-            EMAIL: 'Correo',
-            BIRTHDAY: 'Cumpleaños',
-            PHONE: 'Telefono'
-        },
-        // Composition functions for User events
-        EVENTS: {
-            BIRTHDAY_TITLE: (data) => `🎈 Cumpleaños: ${data.name}`,
-            BIRTHDAY_DESC: () => ``,
-            ANNIVERSARY_TITLE: (data) => `🎊 Aniversario en 3M: ${data.name}`,
-            ANNIVERSARY_DESC: () => ``
         }
     },
 
@@ -109,7 +110,7 @@ export const CONFIG = {
             INSTRUCTOR: 'Instructor'
         }
     },
-    // 4. ATTENDANCE FORM SETTINGS
+    // 5. ATTENDANCE FORM SETTINGS
     ATTENDANCE: {
         SHEET_NAME: 'Asistencia',
         FIELDS: {
@@ -118,7 +119,7 @@ export const CONFIG = {
             INSTRUCTOR_PREFIX: 'Asistencia - '
         }
     },
-    // 5. MODIFY SCHEDULE SETTINGS
+    // 6. MODIFY SCHEDULE SETTINGS
     MODIFY: {
         SHEET_NAME: 'Cambios',
         FIELDS: {

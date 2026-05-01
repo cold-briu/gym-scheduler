@@ -22,7 +22,22 @@ function run(cmd) {
 // 1. Build
 run('npm run build');
 
-// 2. Copy bundle into dist/
+// 2. Increment version in package.json
+// TODO: Future implementation will add flags for major releases and fixes (patches).
+// For now, default to minor bump.
+const pkgPath = path.join(ROOT, 'package.json');
+const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
+const oldVersion = pkg.version;
+const versionParts = oldVersion.split('.');
+versionParts[1] = parseInt(versionParts[1]) + 1;
+versionParts[2] = 0; // Reset patch on minor bump
+const newVersion = versionParts.join('.');
+pkg.version = newVersion;
+fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n');
+console.log(`\nVersion bumped: ${oldVersion} → ${newVersion}`);
+
+
+// 3. Copy bundle into dist/ and prepend version comment
 // dist/ is provisioned by `clasp clone` and must already exist — do NOT create it
 // programmatically, as doing so would bypass clasp's project metadata setup (.clasp.json,
 // appsscript.json) and result in a broken or orphaned push target.
@@ -32,11 +47,15 @@ if (!fs.existsSync(DIST_DIR)) {
     console.error('Run `clasp clone <scriptId>` inside dist/ to initialize it before deploying.');
     process.exit(1);
 }
-fs.copyFileSync(SRC, DEST);
-console.log(`\nCopied ${SRC} → ${DEST}`);
 
-// 3. Push to Google Apps Script via clasp
+const bundleContent = fs.readFileSync(SRC, 'utf8');
+const versionedContent = `// Release: ${newVersion}\n${bundleContent}`;
+fs.writeFileSync(DEST, versionedContent);
+console.log(`\nCopied ${SRC} → ${DEST} (with version comment)`);
+
+// 4. Push to Google Apps Script via clasp
 // clasp push must run from dist/ where .clasp.json lives (provisioned by `clasp clone`)
 execSync('clasp push', { cwd: DIST_DIR, stdio: 'inherit' });
 
 console.log('\nDeploy complete.');
+

@@ -11,10 +11,15 @@ const path = require('path');
 
 const DEPLOYMENTS_FILE = path.resolve(__dirname, '..', 'deployments.yaml');
 
+const pkgPath = path.resolve(__dirname, '..', 'package.json');
+const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
+const version = pkg.version;
+
 const timestamp = new Date().toISOString();
 
 const entry = `
 - date: "${timestamp}"
+  version: "${version}"
 `;
 
 fs.appendFileSync(DEPLOYMENTS_FILE, entry, 'utf8');

@@ -1,6 +1,6 @@
 {
   "name": "gym-scheduler",
-  "version": "1.0.0",
+  "version": "0.6.0",
   "description": "Gym Schedule System",
   "main": "src/index.js",
   "scripts": {

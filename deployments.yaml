@@ -3,7 +3,8 @@
 # Each entry is written automatically by scripts/log-deploy.js after a successful clasp push.
 #
 # Schema:
-#   date:   ISO 8601 timestamp of the deployment
+#   date:    ISO 8601 timestamp of the deployment
+#   version: Release version (from package.json)
 
 deployments: []
 
@@ -14,3 +15,14 @@ deployments: []
 - date: "2026-05-01T15:43:14.777Z"
   status: "success"
   notes: ""
+
+- date: "2026-05-01T16:04:41.788Z"
+
+- date: "2026-05-01T16:09:00.745Z"
+
+- date: "2026-05-01T16:14:06.888Z"
+
+- date: "2026-05-01T16:14:57.432Z"
+
+- date: "2026-05-01T16:22:24.610Z"
+  version: "0.6.0"
