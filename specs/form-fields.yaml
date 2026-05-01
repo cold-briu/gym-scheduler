@@ -95,3 +95,30 @@ forms:
         internal_key: new_class_instructor
         type: Dropdown
         description: "The instructor for the new class."
+  asignacion_inicial:
+    sheet_name: Asignacion Inicial
+    fields:
+      Usuario:
+        internal_key: user_id
+        type: Dropdown
+        description: Member name (dynamically updated from Usuarios sheet)
+      Día:
+        internal_key: day
+        type: Dropdown
+        description: "Day of the week (Page 1). Uses 'Go to section based on answer' to route to the correct time slots for that day."
+        options:
+          - Lunes
+          - Martes
+          - Miércoles
+          - Jueves
+          - Viernes
+          - Sábado
+      Horario:
+        internal_key: timeSlot
+        type: Dropdown
+        description: "Time frame for the selected day (Page 2+). One section per Day. Uses 'Go to section based on answer' to route to available instructors."
+      Instructor:
+        internal_key: instructor
+        type: Dropdown
+        description: "Available instructors for the chosen Day and Time (Page 3+). One section per Time Slot. Only shows instructors defined in the availability matrix for that specific time."
+

@@ -16,6 +16,7 @@ export const CONFIG = {
         'correo': 'email',
         'telefono': 'phone',
         'cumpleaños': 'birthdayString',
+        'usuario': 'user_id',
         'día': 'day',
         'horario': 'timeSlot',
         'instructor': 'instructor',
@@ -86,6 +87,16 @@ export const CONFIG = {
             MAX_CAPACITY: 'Cupos Totales',
             AVAILABLE_SPOTS: 'Cupos Disponibles',
             ENROLLED: 'Inscritos'
+        }
+    },
+    // 4. ASIGNACION FORM SETTINGS
+    ASIGNACION: {
+        SHEET_NAME: 'Asignacion Inicial',
+        FIELDS: {
+            USER: 'Usuario',
+            DAY: 'Día',
+            TIME_SLOT: 'Horario',
+            INSTRUCTOR: 'Instructor'
         }
     },
     // 4. ATTENDANCE FORM SETTINGS

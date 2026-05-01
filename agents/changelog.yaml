@@ -183,3 +183,16 @@
   files_modified:
     - specs/dashboards-spec.yaml
     - specs/implementation-status.md
+
+- date: "2026-05-01T07:48:00-05:00"
+  description: "Created 'asignacion_inicial' form specification in specs/form-fields.yaml for the admin to set initial classes for new users. Updated design-spec.yaml to use CONFIG.ASIGNACION and separated the selected_classes array into day, timeSlot, and instructor fields. Added CONFIG.ASIGNACION and user_id to DB_MAPPING in src/config.js."
+  files_modified:
+    - specs/form-fields.yaml
+    - specs/design-spec.yaml
+    - src/config.js
+
+- date: "2026-05-01T07:50:00-05:00"
+  description: "Updated 'asignacion_inicial' form specification to account for dynamic instructor availability. Documented a multi-page routing structure using 'Go to section based on answer' for Day (Page 1), Time Slot (Page 2+), and Instructor (Page 3+) to ensure only valid instructors defined in the matrix can be selected."
+  files_modified:
+    - specs/form-fields.yaml
+    - specs/design-spec.yaml

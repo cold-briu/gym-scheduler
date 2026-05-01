@@ -70,23 +70,31 @@ features:
     name: Initial Schedule Assignment
     description:
       actor: Admin
-      trigger: Form submission (Sheet matching CONFIG.SCHEDULE.SHEET_NAME)
+      trigger: Form submission (Sheet matching CONFIG.ASIGNACION.SHEET_NAME)
       action: Assign initial classes
+      structure:
+        - page_1: "User and Day Router: Dropdown selection for Day with 'Go to section based on answer' logic."
+        - page_2_plus: "Time Slot Router: Dropdown selection for Time with 'Go to section based on answer' logic, branching from the chosen Day."
+        - page_3_plus: "Instructor Selection: Dropdown showing only valid instructors for the chosen Day and Time based on the availability matrix."
       functions_used:
         - onScheduleSubmit(event): Core scheduling handler
         - checkCapacity(class_id): Verifies available slots against limit
       api_calls:
         - CalendarApp.createEvent: Schedules individual class sessions
       schemas:
-        config_reference: CONFIG.SCHEDULE
+        config_reference: CONFIG.ASIGNACION
         field_mapping:
           Usuario: user_id
-          Clases: selected_classes
+          Día: day
+          Horario: timeSlot
+          Instructor: instructor
         schedule_source: specs/gym-schedules.yaml
       validation: Rejects assignment if selected class exceeds maximum participant capacity defined in the schedules matrix
       data:
         - user_id (dropdown)
-        - selected_classes
+        - day (dropdown)
+        - timeSlot (dropdown)
+        - instructor (dropdown)
         - available_capacity (calculated via active event attendee count vs maxCapacity in Horarios sheet)
   
   - id: f_admin_attendance
