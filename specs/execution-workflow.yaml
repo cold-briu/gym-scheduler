@@ -50,6 +50,16 @@ execution_workflow:
         - action: "Update Horarios Sheet"
           description: "Decrements capacity for the new class and restores capacity for the old class."
 
+    - condition: "sheetName === CONFIG.ASIGNACION.SHEET_NAME ('Asignacion Inicial')"
+      handler: "onScheduleSubmit(e)"
+      description: "Handles the assignment of initial classes for new users."
+      sequence:
+        - function: "getFieldValue(event, CONFIG.ASIGNACION.FIELDS, key)"
+          description: "Extracts scheduling details (User, Day, Time Slot, Instructor) from the form submission."
+        - action: "Write to Sheet"
+          description: "Appends the assignment row (User, Day, Time Slot, Instructor) to the 'Asignacion Inicial' sheet."
+        # Future: CalendarApp.createEvent per user (nice-to-have, not prioritized)
+
     - condition: "default"
       action: "Log Warning"
       description: "If the sheet is neither Payments nor Users, logs a warning indicating an unknown sheet submission."

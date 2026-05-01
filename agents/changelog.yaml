@@ -205,3 +205,15 @@
   description: "Updated agents/instructions.agent.md to explicitly ban the use of bash `cat` commands for appending to the changelog, ensuring that timestamps are correctly evaluated rather than logged as literal string variables."
   files_modified:
     - agents/instructions.agent.md
+
+- date: "2026-05-01T08:08:00-05:00"
+  description: "Updated specs/execution-workflow.yaml and specs/design-spec.yaml to include the routing and handler sequence for 'Asignación Inicial'. Documented that capacity validation (checkCapacity) is temporarily bypassed, allowing overbooking."
+  files_modified:
+    - specs/execution-workflow.yaml
+    - specs/design-spec.yaml
+
+- date: "2026-05-01T08:11:00-05:00"
+  description: "Removed CalendarApp.createEvent from 'f_admin_initial_schedule'. Calendar notifications per user are deferred as a future nice-to-have. Handler now only writes assignment data to the sheet. Removed available_capacity from data fields as it was tied to the deferred capacity check logic."
+  files_modified:
+    - specs/design-spec.yaml
+    - specs/execution-workflow.yaml

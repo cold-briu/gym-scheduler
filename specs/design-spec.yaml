@@ -78,9 +78,9 @@ features:
         - page_3_plus: "Instructor Selection: Dropdown showing only valid instructors for the chosen Day and Time based on the availability matrix."
       functions_used:
         - onScheduleSubmit(event): Core scheduling handler
-        - checkCapacity(class_id): Verifies available slots against limit
-      api_calls:
-        - CalendarApp.createEvent: Schedules individual class sessions
+      api_calls: []
+      future_implementation:
+        - CalendarApp.createEvent: Schedule individual class calendar events per user (nice-to-have, not prioritized)
       schemas:
         config_reference: CONFIG.ASIGNACION
         field_mapping:
@@ -89,13 +89,12 @@ features:
           Horario: timeSlot
           Instructor: instructor
         schedule_source: specs/gym-schedules.yaml
-      validation: Rejects assignment if selected class exceeds maximum participant capacity defined in the schedules matrix
+      validation: None initially (capacity validation is bypassed, allowing temporary overbooking risk)
       data:
         - user_id (dropdown)
         - day (dropdown)
         - timeSlot (dropdown)
         - instructor (dropdown)
-        - available_capacity (calculated via active event attendee count vs maxCapacity in Horarios sheet)
   
   - id: f_admin_attendance
     name: Class Attendance
