@@ -1,10 +1,20 @@
 /**
+ * DEPLOYMENT IDs
+ * Easy access source of truth for IDs.
+ */
+const IDS = {
+    CALENDAR_ID: 'demo@group.calendar.google.com',
+    PAYMENTS_FORM_ID: 'form-id',
+    SIGNUP_FORM_ID: 'form-id-2'
+};
+
+/**
  * CONFIGURATION
  * Organized by form type for clarity.
  * Event Titles and Descriptions are now composed via functions.
  */
 export const CONFIG = {
-    CALENDAR_ID: 'demo@group.calendar.google.com',
+    CALENDAR_ID: IDS.CALENDAR_ID,
     TIMEZONE: 'GMT-5',
 
     DB_MAPPING: {
@@ -38,7 +48,7 @@ export const CONFIG = {
     },
 
     PAYMENTS: {
-        FORM_ID: 'form-id',
+        FORM_ID: IDS.PAYMENTS_FORM_ID,
         SHEET_NAME: 'Pagos',
         DROPDOWN_TITLE: 'nombre',
         REMINDER_DAYS: 7,
@@ -60,7 +70,7 @@ export const CONFIG = {
 
     // 2. USERS FORM SETTINGS
     USERS: {
-        FORM_ID: 'form-id-2',
+        FORM_ID: IDS.SIGNUP_FORM_ID,
         SHEET_NAME: 'Usuarios',
         FIELDS: {
             NAME: 'Nombre',

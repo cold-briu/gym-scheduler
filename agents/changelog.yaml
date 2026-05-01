@@ -227,3 +227,14 @@
   description: "Reordered handlers in src/handlers.js so that onMemberSignup is #1 and onPaymentSubmit is #2. This aligns the source file order with the real-world execution flow: a user must be enrolled before a payment can reference them."
   files_modified:
     - src/handlers.js
+
+- date: "2026-05-01T10:55:00-05:00"
+  description: "Centralized CALENDAR_ID, PAYMENTS_FORM_ID, and SIGNUP_FORM_ID into a top-level IDS object in src/config.js for easier configuration management."
+  files_modified:
+    - src/config.js
+
+- date: "2026-05-01T11:04:00-05:00"
+  description: "Updated scripts/log-deploy.js to only log the deployment timestamp, removing hardcoded status and notes fields. Updated deployments.yaml schema comments accordingly."
+  files_modified:
+    - scripts/log-deploy.js
+    - deployments.yaml

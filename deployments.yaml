@@ -1,0 +1,16 @@
+# deployments.yaml
+# Append-only log of production deployments.
+# Each entry is written automatically by scripts/log-deploy.js after a successful clasp push.
+#
+# Schema:
+#   date:   ISO 8601 timestamp of the deployment
+
+deployments: []
+
+- date: "2026-05-01T15:42:32.828Z"
+  status: "success"
+  notes: ""
+
+- date: "2026-05-01T15:43:14.777Z"
+  status: "success"
+  notes: ""
