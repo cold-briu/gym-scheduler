@@ -3,3 +3,4 @@ npm-debug.log
 out/
 .env
 .DS_Store
+.clasp.json

@@ -26,3 +26,9 @@ Short and concise.
     - Never manipulate or modify test files without an explicit request from the user.
     - Never alter tests or mock data solely to force a failing test to pass.
     - If a test fails, provide a detailed technical explanation of the failure to the user so they can decide on the appropriate fix (e.g., whether the implementation or the test itself needs adjustment).
+
+## Deployment Context
+
+- **`dist/`** is the deployment artifacts directory. It contains the final, tested, built code that is ready to be pushed to Google Apps Script via `clasp`.
+- **`out/`** is the intermediate build output directory (bundled JS). Do not confuse it with `dist/`.
+- The workflow from `out/` → `dist/` → clasp deploy has **not yet been specified** by the user. Agents must not assume or invent deployment steps. When deployment-related tasks arise, ask the user to define the workflow first.
