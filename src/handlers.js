@@ -1,65 +1,5 @@
 /**
- * 1. PAYMENTS FORM SUBMIT
- * Called by masterFormRouter when a submission hits the Payments sheet.
- */
-export function onPaymentSubmit(event) {
-    console.log("--- Payment Submit Received ---");
-    try {
-        const paymentData = {
-            [CONFIG.DB_MAPPING['nombre']]: getFieldValue(event, CONFIG.PAYMENTS.FIELDS, 'NAME'),
-            [CONFIG.DB_MAPPING['valor']]: getFieldValue(event, CONFIG.PAYMENTS.FIELDS, 'VALUE'),
-            [CONFIG.DB_MAPPING['tipo de membresía']]: toSlug(getFieldValue(event, CONFIG.PAYMENTS.FIELDS, 'MEMBERSHIP_TYPE')),
-            [CONFIG.DB_MAPPING['metodo']]: getFieldValue(event, CONFIG.PAYMENTS.FIELDS, 'METHOD'),
-            [CONFIG.DB_MAPPING['fechaInicio']]: getFieldValue(event, CONFIG.PAYMENTS.FIELDS, 'START_DATE')
-        };
-
-        // Parse Date (Expected: D/M/Y)
-        const dateParts = paymentData.startDate.split(/[-/.]/);
-        const startDate = new Date(dateParts[2], dateParts[1] - 1, dateParts[0]);
-
-        // Calculate Expiry
-        const monthDuration = CONFIG.MEMBERSHIP_TYPE_MONTHS[paymentData.membershipType];
-
-        if (monthDuration) {
-            const expiryDate = new Date(startDate);
-            expiryDate.setMonth(expiryDate.getMonth() + monthDuration);
-
-            const mainCalendar = CalendarApp.getCalendarById(CONFIG.CALENDAR_ID);
-            if (!mainCalendar) {
-                throw new Error(`Could not access calendar with ID: ${CONFIG.CALENDAR_ID}`);
-            }
-
-            const eventConfig = CONFIG.PAYMENTS.EVENTS;
-
-            // 1. Expiry Event
-            mainCalendar.createAllDayEvent(
-                eventConfig.EXPIRY_TITLE(paymentData),
-                expiryDate,
-                { description: eventConfig.EXPIRY_DESC(paymentData) }
-            );
-
-            // 2. Reminder Event
-            const reminderDate = new Date(expiryDate);
-            reminderDate.setDate(reminderDate.getDate() - CONFIG.PAYMENTS.REMINDER_DAYS);
-
-            mainCalendar.createAllDayEvent(
-                eventConfig.REMINDER_TITLE(paymentData),
-                reminderDate,
-                { description: eventConfig.REMINDER_DESC(paymentData) }
-            );
-
-            console.log(`Calendar records created for ${paymentData.name}`);
-        } else {
-            console.log(`No expiry calendar record created for ${paymentData.name} - membership type: ${paymentData.membershipType} does not require it`);
-        }
-    } catch (error) {
-        console.error(`Payment workflow failure: ${error.message}`);
-    }
-    console.log("--- Finished Payment Workflow ---");
-}
-
-/**
- * 2. USERS FORM SUBMIT
+ * 1. USERS FORM SUBMIT
  * Called by masterFormRouter when a submission hits the Members sheet.
  */
 export function onMemberSignup(event) {
@@ -126,4 +66,64 @@ export function onMemberSignup(event) {
         console.error(`User registration failure: ${error.message}`);
     }
     console.log("--- Finished User Registration Workflow ---");
+}
+
+/**
+ * 2. PAYMENTS FORM SUBMIT
+ * Called by masterFormRouter when a submission hits the Payments sheet.
+ */
+export function onPaymentSubmit(event) {
+    console.log("--- Payment Submit Received ---");
+    try {
+        const paymentData = {
+            [CONFIG.DB_MAPPING['nombre']]: getFieldValue(event, CONFIG.PAYMENTS.FIELDS, 'NAME'),
+            [CONFIG.DB_MAPPING['valor']]: getFieldValue(event, CONFIG.PAYMENTS.FIELDS, 'VALUE'),
+            [CONFIG.DB_MAPPING['tipo de membresía']]: toSlug(getFieldValue(event, CONFIG.PAYMENTS.FIELDS, 'MEMBERSHIP_TYPE')),
+            [CONFIG.DB_MAPPING['metodo']]: getFieldValue(event, CONFIG.PAYMENTS.FIELDS, 'METHOD'),
+            [CONFIG.DB_MAPPING['fechaInicio']]: getFieldValue(event, CONFIG.PAYMENTS.FIELDS, 'START_DATE')
+        };
+
+        // Parse Date (Expected: D/M/Y)
+        const dateParts = paymentData.startDate.split(/[-/.]/);
+        const startDate = new Date(dateParts[2], dateParts[1] - 1, dateParts[0]);
+
+        // Calculate Expiry
+        const monthDuration = CONFIG.MEMBERSHIP_TYPE_MONTHS[paymentData.membershipType];
+
+        if (monthDuration) {
+            const expiryDate = new Date(startDate);
+            expiryDate.setMonth(expiryDate.getMonth() + monthDuration);
+
+            const mainCalendar = CalendarApp.getCalendarById(CONFIG.CALENDAR_ID);
+            if (!mainCalendar) {
+                throw new Error(`Could not access calendar with ID: ${CONFIG.CALENDAR_ID}`);
+            }
+
+            const eventConfig = CONFIG.PAYMENTS.EVENTS;
+
+            // 1. Expiry Event
+            mainCalendar.createAllDayEvent(
+                eventConfig.EXPIRY_TITLE(paymentData),
+                expiryDate,
+                { description: eventConfig.EXPIRY_DESC(paymentData) }
+            );
+
+            // 2. Reminder Event
+            const reminderDate = new Date(expiryDate);
+            reminderDate.setDate(reminderDate.getDate() - CONFIG.PAYMENTS.REMINDER_DAYS);
+
+            mainCalendar.createAllDayEvent(
+                eventConfig.REMINDER_TITLE(paymentData),
+                reminderDate,
+                { description: eventConfig.REMINDER_DESC(paymentData) }
+            );
+
+            console.log(`Calendar records created for ${paymentData.name}`);
+        } else {
+            console.log(`No expiry calendar record created for ${paymentData.name} - membership type: ${paymentData.membershipType} does not require it`);
+        }
+    } catch (error) {
+        console.error(`Payment workflow failure: ${error.message}`);
+    }
+    console.log("--- Finished Payment Workflow ---");
 }

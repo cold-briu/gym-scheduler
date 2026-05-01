@@ -12,12 +12,25 @@ export const CONFIG = {
         'nombre': 'name',
         'valor': 'value',
         'metodo': 'method',
+        'tipo de membresía': 'membershipType',
         'fechaInicio': 'startDate',
         'correo': 'email',
-        'telefono': 'phone'
+        'telefono': 'phone',
+        'cumpleaños': 'birthdayString',
+        'usuario': 'user_id',
+        'día': 'day',
+        'horario': 'timeSlot',
+        'instructor': 'instructor',
+        'cupos totales': 'maxCapacity',
+        'cupos disponibles': 'availableSpots',
+        'inscritos': 'enrolledUsers',
+        'clase actual': 'old_class_info',
+        'nueva fecha': 'new_class_date',
+        'nuevo horario': 'new_class_time',
+        'nuevo instructor': 'new_class_instructor'
     },
 
-    MEMBERSHIP_DURATION_MONTHS: {
+    MEMBERSHIP_TYPE_MONTHS: {
         'mensualidad': 1,
         'mensualidad_dirigida': 1,
         'trimestre_mensualidad': 3,
@@ -33,7 +46,7 @@ export const CONFIG = {
         FIELDS: {
             NAME: 'Nombre',
             VALUE: 'Valor',
-            DURATION: 'Duracion',
+            MEMBERSHIP_TYPE: 'Tipo de membresía',
             METHOD: 'Metodo',
             START_DATE: 'Fecha de inicio'
         },
@@ -63,6 +76,49 @@ export const CONFIG = {
             ANNIVERSARY_TITLE: (data) => `🎊 Aniversario en 3M: ${data.name}`,
             ANNIVERSARY_DESC: () => ``
         }
+    },
+
+    // 3. SCHEDULE SETTINGS (Reference Sheet)
+    SCHEDULE: {
+        SHEET_NAME: 'Horarios',
+        FIELDS: {
+            DAY: 'Día',
+            TIME_SLOT: 'Horario',
+            INSTRUCTOR: 'Instructor',
+            MAX_CAPACITY: 'Cupos Totales',
+            AVAILABLE_SPOTS: 'Cupos Disponibles',
+            ENROLLED: 'Inscritos'
+        }
+    },
+    // 4. ASIGNACION FORM SETTINGS
+    ASIGNACION: {
+        SHEET_NAME: 'Asignacion Inicial',
+        FIELDS: {
+            USER: 'Usuario',
+            DAY: 'Día',
+            TIME_SLOT: 'Horario',
+            INSTRUCTOR: 'Instructor'
+        }
+    },
+    // 4. ATTENDANCE FORM SETTINGS
+    ATTENDANCE: {
+        SHEET_NAME: 'Asistencia',
+        FIELDS: {
+            CLASS: 'Clase',
+            // Note: Instructor fields are dynamic and prefixed with "Asistencia - "
+            INSTRUCTOR_PREFIX: 'Asistencia - '
+        }
+    },
+    // 5. MODIFY SCHEDULE SETTINGS
+    MODIFY: {
+        SHEET_NAME: 'Cambios',
+        FIELDS: {
+            USER: 'Nombre',
+            OLD_CLASS: 'Clase Actual',
+            NEW_DATE: 'Nueva Fecha',
+            NEW_TIME: 'Nuevo Horario',
+            NEW_INSTRUCTOR: 'Nuevo Instructor'
+        }
     }
 };
 
@@ -89,6 +145,31 @@ export const CONFIG = {
  * @property {string} phone
  * @property {string} birthdayString
  * @property {string} signupDateFormatted
+ */
+
+/**
+ * @typedef {Object} ScheduleData
+ * @property {string} day
+ * @property {string} timeSlot
+ * @property {string} instructor
+ * @property {number} maxCapacity
+ * @property {number} availableSpots
+ * @property {string[]} enrolledUsers
+ */
+
+/**
+ * @typedef {Object} ModifyScheduleData
+ * @property {string} user_id
+ * @property {string} old_class_info
+ * @property {string} new_class_date
+ * @property {string} new_class_time
+ * @property {string} new_class_instructor
+ */
+
+/**
+ * @typedef {Object} AttendanceData
+ * @property {string} class_id - The ID or name of the class slot.
+ * @property {string[]} presentUsers - List of students marked as present.
  */
 
 /**
@@ -136,67 +217,7 @@ export function masterFormRouter(e) {
 
 // --- File: handlers.js ---
 /**
- * 1. PAYMENTS FORM SUBMIT
- * Called by masterFormRouter when a submission hits the Payments sheet.
- */
-export function onPaymentSubmit(event) {
-    console.log("--- Payment Submit Received ---");
-    try {
-        const paymentData = {
-            [CONFIG.DB_MAPPING['nombre']]: getFieldValue(event, CONFIG.PAYMENTS.FIELDS, 'NAME'),
-            [CONFIG.DB_MAPPING['valor']]: getFieldValue(event, CONFIG.PAYMENTS.FIELDS, 'VALUE'),
-            membershipType: getFieldValue(event, CONFIG.PAYMENTS.FIELDS, 'DURATION'),
-            [CONFIG.DB_MAPPING['metodo']]: getFieldValue(event, CONFIG.PAYMENTS.FIELDS, 'METHOD'),
-            [CONFIG.DB_MAPPING['fechaInicio']]: getFieldValue(event, CONFIG.PAYMENTS.FIELDS, 'START_DATE')
-        };
-
-        // Parse Date (Expected: D/M/Y)
-        const dateParts = paymentData.startDate.split(/[-/.]/);
-        const startDate = new Date(dateParts[2], dateParts[1] - 1, dateParts[0]);
-
-        // Calculate Expiry
-        const monthDuration = CONFIG.MEMBERSHIP_DURATION_MONTHS[paymentData.membershipType];
-
-        if (monthDuration) {
-            const expiryDate = new Date(startDate);
-            expiryDate.setMonth(expiryDate.getMonth() + monthDuration);
-
-            const mainCalendar = CalendarApp.getCalendarById(CONFIG.CALENDAR_ID);
-            if (!mainCalendar) {
-                throw new Error(`Could not access calendar with ID: ${CONFIG.CALENDAR_ID}`);
-            }
-
-            const eventConfig = CONFIG.PAYMENTS.EVENTS;
-
-            // 1. Expiry Event
-            mainCalendar.createAllDayEvent(
-                eventConfig.EXPIRY_TITLE(paymentData),
-                expiryDate,
-                { description: eventConfig.EXPIRY_DESC(paymentData) }
-            );
-
-            // 2. Reminder Event
-            const reminderDate = new Date(expiryDate);
-            reminderDate.setDate(reminderDate.getDate() - CONFIG.PAYMENTS.REMINDER_DAYS);
-
-            mainCalendar.createAllDayEvent(
-                eventConfig.REMINDER_TITLE(paymentData),
-                reminderDate,
-                { description: eventConfig.REMINDER_DESC(paymentData) }
-            );
-
-            console.log(`Calendar records created for ${paymentData.name}`);
-        } else {
-            console.log(`No expiry calendar record created for ${paymentData.name} - membership type: ${paymentData.membershipType} does not require it`);
-        }
-    } catch (error) {
-        console.error(`Payment workflow failure: ${error.message}`);
-    }
-    console.log("--- Finished Payment Workflow ---");
-}
-
-/**
- * 2. USERS FORM SUBMIT
+ * 1. USERS FORM SUBMIT
  * Called by masterFormRouter when a submission hits the Members sheet.
  */
 export function onMemberSignup(event) {
@@ -207,7 +228,7 @@ export function onMemberSignup(event) {
             [CONFIG.DB_MAPPING['nombre']]: getFieldValue(event, CONFIG.USERS.FIELDS, 'NAME'),
             [CONFIG.DB_MAPPING['correo']]: getFieldValue(event, CONFIG.USERS.FIELDS, 'EMAIL'),
             [CONFIG.DB_MAPPING['telefono']]: getFieldValue(event, CONFIG.USERS.FIELDS, 'PHONE'),
-            birthdayString: getFieldValue(event, CONFIG.USERS.FIELDS, 'BIRTHDAY'),
+            [CONFIG.DB_MAPPING['cumpleaños']]: getFieldValue(event, CONFIG.USERS.FIELDS, 'BIRTHDAY'),
             signupDateFormatted: Utilities.formatDate(today, CONFIG.TIMEZONE, "dd/MM/yyyy")
         };
 
@@ -265,6 +286,66 @@ export function onMemberSignup(event) {
     console.log("--- Finished User Registration Workflow ---");
 }
 
+/**
+ * 2. PAYMENTS FORM SUBMIT
+ * Called by masterFormRouter when a submission hits the Payments sheet.
+ */
+export function onPaymentSubmit(event) {
+    console.log("--- Payment Submit Received ---");
+    try {
+        const paymentData = {
+            [CONFIG.DB_MAPPING['nombre']]: getFieldValue(event, CONFIG.PAYMENTS.FIELDS, 'NAME'),
+            [CONFIG.DB_MAPPING['valor']]: getFieldValue(event, CONFIG.PAYMENTS.FIELDS, 'VALUE'),
+            [CONFIG.DB_MAPPING['tipo de membresía']]: toSlug(getFieldValue(event, CONFIG.PAYMENTS.FIELDS, 'MEMBERSHIP_TYPE')),
+            [CONFIG.DB_MAPPING['metodo']]: getFieldValue(event, CONFIG.PAYMENTS.FIELDS, 'METHOD'),
+            [CONFIG.DB_MAPPING['fechaInicio']]: getFieldValue(event, CONFIG.PAYMENTS.FIELDS, 'START_DATE')
+        };
+
+        // Parse Date (Expected: D/M/Y)
+        const dateParts = paymentData.startDate.split(/[-/.]/);
+        const startDate = new Date(dateParts[2], dateParts[1] - 1, dateParts[0]);
+
+        // Calculate Expiry
+        const monthDuration = CONFIG.MEMBERSHIP_TYPE_MONTHS[paymentData.membershipType];
+
+        if (monthDuration) {
+            const expiryDate = new Date(startDate);
+            expiryDate.setMonth(expiryDate.getMonth() + monthDuration);
+
+            const mainCalendar = CalendarApp.getCalendarById(CONFIG.CALENDAR_ID);
+            if (!mainCalendar) {
+                throw new Error(`Could not access calendar with ID: ${CONFIG.CALENDAR_ID}`);
+            }
+
+            const eventConfig = CONFIG.PAYMENTS.EVENTS;
+
+            // 1. Expiry Event
+            mainCalendar.createAllDayEvent(
+                eventConfig.EXPIRY_TITLE(paymentData),
+                expiryDate,
+                { description: eventConfig.EXPIRY_DESC(paymentData) }
+            );
+
+            // 2. Reminder Event
+            const reminderDate = new Date(expiryDate);
+            reminderDate.setDate(reminderDate.getDate() - CONFIG.PAYMENTS.REMINDER_DAYS);
+
+            mainCalendar.createAllDayEvent(
+                eventConfig.REMINDER_TITLE(paymentData),
+                reminderDate,
+                { description: eventConfig.REMINDER_DESC(paymentData) }
+            );
+
+            console.log(`Calendar records created for ${paymentData.name}`);
+        } else {
+            console.log(`No expiry calendar record created for ${paymentData.name} - membership type: ${paymentData.membershipType} does not require it`);
+        }
+    } catch (error) {
+        console.error(`Payment workflow failure: ${error.message}`);
+    }
+    console.log("--- Finished Payment Workflow ---");
+}
+
 
 // --- File: utils.js ---
 /**
@@ -282,6 +363,20 @@ export function getFieldValue(event, fieldMapping, key) {
     }
 
     return event.namedValues[actualKeyInResponse][0];
+}
+
+/**
+ * Normalizes Spanish text to slugs compatible with MembershipType enum.
+ * Example: "Día de Escalada" -> "dia_de_escalada"
+ */
+export function toSlug(text) {
+    if (!text) return "";
+    return text.toString()
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]+/g, '_')
+        .replace(/^_+|_+$/g, '');
 }
 
 

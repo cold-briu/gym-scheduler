@@ -217,3 +217,13 @@
   files_modified:
     - specs/design-spec.yaml
     - specs/execution-workflow.yaml
+
+- date: "2026-05-01T08:32:00-05:00"
+  description: "Reordered form setup steps in INSTALLATION.md so that 'Initial Assignment (Asignación Inicial)' is Form 3 and 'Attendance (Asistencia)' is Form 4. Updated the IMPORTANT note tab order to match. This reflects the intended admin workflow: users must be assigned a schedule before attendance can be tracked."
+  files_modified:
+    - INSTALLATION.md
+
+- date: "2026-05-01T08:38:00-05:00"
+  description: "Reordered handlers in src/handlers.js so that onMemberSignup is #1 and onPaymentSubmit is #2. This aligns the source file order with the real-world execution flow: a user must be enrolled before a payment can reference them."
+  files_modified:
+    - src/handlers.js
