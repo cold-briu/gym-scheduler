@@ -52,8 +52,21 @@ The easiest way to set up the database is to create the **Google Forms** first a
 4. Link the form to the **same spreadsheet** (**Gym Database**).
 5. In the spreadsheet, rename the new tab to **`Asistencia`**.
 
+### Form 4: Initial Assignment (Asignación Inicial)
+1. Create a fourth Google Form.
+2. Add the following questions:
+   - **Usuario**: Dropdown. (Note: Automatically updated by script from `Usuarios` sheet).
+   - **Día**: Dropdown. Include options: `Lunes`, `Martes`, `Miércoles`, `Jueves`, `Viernes`, `Sábado`.
+   - **Horario**: Dropdown.
+   - **Instructor**: Dropdown.
+3. Set up **Page Navigation**:
+   - Configure the **Día** dropdown to "Go to section based on answer" to route to the correct time slots (Page 2+).
+   - Configure the **Horario** dropdown (in each day's section) to "Go to section based on answer" to route to available instructors for that time slot (Page 3+).
+4. Link the form to the **same spreadsheet** (**Gym Database**).
+5. In the spreadsheet, rename the new tab to **`Asignacion Inicial`**.
+
 > [!IMPORTANT]
-> The script identifies data based on the **Tab Name** (`Usuarios`, `Pagos`, and `Asistencia`) and the **Column Headers** (which must match the question titles exactly). These field names are defined in the project's source of truth: [form-fields.yaml](specs/form-fields.yaml).
+> The script identifies data based on the **Tab Name** (`Usuarios`, `Pagos`, `Asistencia`, and `Asignacion Inicial`) and the **Column Headers** (which must match the question titles exactly). These field names are defined in the project's source of truth: [form-fields.yaml](specs/form-fields.yaml).
 
 ---
 

@@ -14,7 +14,7 @@ Short and concise.
 - **Structural Clarity**: Ensure the YAML hierarchy effectively breaks down complex workflows into digestible, predictable blocks.
 - **Consistent Taxonomy**: Categorize properties by Actor, Trigger, Action, Functions, APIs, and Schemas to create a solid, repeatable standard for spec definition.
 - **Actionable Implementation Details**: Explicitly define which Google Apps Script functions and Calendar APIs are responsible for specific actions, similar to the `f_new_user` and `f_new_user_payment` features.
-- **Change Logging**: Each time an agent performs a change, they must log it into `agents/changelog.yaml`.
+- **Change Logging**: Each time an agent performs a change, they must log it into `agents/changelog.yaml`. When appending to the changelog, DO NOT use bash commands (like `cat << 'EOF'`), as they can result in variables like `$(date...)` being logged literally rather than being evaluated. Always use specific file editing tools (like `replace_file_content` or `multi_replace_file_content`) and hardcode the evaluated timestamp directly into the string you append.
 - **Form Field Source of Truth**: The file `specs/form-fields.yaml` is the absolute source of truth for all Google Sheets column names and form field titles. Any changes to schemas in `src/schemas.js` or configuration mappings in `src/config.js` MUST be reconciled with this document.
 - **Documentation Reconciliation**: After any significant change (e.g., adding a new master sheet, form spec, or feature), the following files MUST be updated to reflect the new state:
     - `README.md`

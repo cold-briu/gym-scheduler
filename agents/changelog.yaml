@@ -196,3 +196,12 @@
   files_modified:
     - specs/form-fields.yaml
     - specs/design-spec.yaml
+- date: "2026-05-01T07:54:00-05:00"
+  description: "Updated INSTALLATION.md to include setup instructions for the Asignación Inicial form (Form 4), detailing the specific questions, page navigation logic (Go to section based on answer) for Día and Horario, and spreadsheet linking."
+  files_modified:
+    - INSTALLATION.md
+
+- date: "2026-05-01T07:55:00-05:00"
+  description: "Updated agents/instructions.agent.md to explicitly ban the use of bash `cat` commands for appending to the changelog, ensuring that timestamps are correctly evaluated rather than logged as literal string variables."
+  files_modified:
+    - agents/instructions.agent.md
