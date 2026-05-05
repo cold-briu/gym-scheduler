@@ -48,10 +48,26 @@ if (!fs.existsSync(DIST_DIR)) {
     process.exit(1);
 }
 
-const bundleContent = fs.readFileSync(SRC, 'utf8');
-const versionedContent = `// Release: ${newVersion}\n${bundleContent}`;
+const isVerbose = process.argv.includes('--verbose');
+let bundleContent = fs.readFileSync(SRC, 'utf8');
+
+if (isVerbose) {
+    bundleContent = bundleContent.replace(
+        /let ENABLE_LOGS = false;/,
+        'let ENABLE_LOGS = true;'
+    );
+}
+
+// Inject version log as the first execution step in masterFormRouter
+const versionLog = `console.log("[Router] --- Executing Release: ${newVersion} ---");`;
+const updatedBundleContent = bundleContent.replace(
+    /function masterFormRouter\(e\) \{/,
+    `function masterFormRouter(e) {\n    ${versionLog}`
+);
+
+const versionedContent = `// Release: ${newVersion}\n${updatedBundleContent}`;
 fs.writeFileSync(DEST, versionedContent);
-console.log(`\nCopied ${SRC} → ${DEST} (with version comment)`);
+console.log(`\nCopied ${SRC} → ${DEST} (with version comment and router log injection)`);
 
 // 4. Push to Google Apps Script via clasp
 // clasp push must run from dist/ where .clasp.json lives (provisioned by `clasp clone`)

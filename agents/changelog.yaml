@@ -242,3 +242,44 @@
   description: "Reordered IDS and CONFIG blocks in src/config.js to match the UX flow (Signup before Payment). Renumbered the configuration sections for clarity (1-6)."
   files_modified:
     - src/config.js
+
+- date: "2026-05-04T20:42:28-05:00"
+  description: "Removed DB_MAPPING from config.js and handlers.js. Changed object keys to be hardcoded in English instead of using Spanish keys mapped via DB_MAPPING, since getFieldValue already handles the column name mapping."
+  files_modified:
+    - src/config.js
+    - src/handlers.js
+
+- date: "2026-05-04T20:47:18-05:00"
+  description: "Added highly verbose console logging to handlers.js (onMemberSignup, onPaymentSubmit) to trace each execution step, payload extraction, and operational outcome for sys admins. Introduced custom errors checking for missing critical data and date parsing to properly crash and surface details in the logs when validation fails."
+  files_modified:
+    - src/handlers.js
+
+- date: "2026-05-04T20:54:17-05:00"
+  description: "Updated scripts/deploy.js to inject a version console log dynamically inside masterFormRouter during build. Wrapped masterFormRouter in a try-catch block for verbose error logging, specifically guarding against manual execution without the event object 'e'."
+  files_modified:
+    - scripts/deploy.js
+    - src/routers.js
+
+- date: "2026-05-04T20:59:00-05:00"
+  description: "Updated src/functions.js to make the names column configurable in updateMemberDropdown. Instead of hardcoding column index 2, it dynamically finds the index using CONFIG.USERS.FIELDS.NAME from the headers row."
+  files_modified:
+    - src/functions.js
+
+- date: "2026-05-04T21:02:00-05:00"
+  description: "Added highly verbose console logging to updateMemberDropdown in src/functions.js to trace each execution step, sheet access, extracted values, and final dropdown update outcome for sys admins."
+  files_modified:
+    - src/functions.js
+
+- date: "2026-05-04T21:07:18-05:00"
+  description: "Updated logging to be conditionally shown based on an ENABLE_LOGS variable (default false). Updated src/routers.js, src/handlers.js, and src/functions.js to check this variable. Updated scripts/deploy.js to look for a --verbose flag to set ENABLE_LOGS to true in the deployed bundle. Error and warning logs are kept without variable checks."
+  files_modified:
+    - src/routers.js
+    - src/handlers.js
+    - src/functions.js
+    - scripts/deploy.js
+
+- date: "2026-05-04T21:11:48-05:00"
+  description: "Updated package.json to include the --verbose flag by default in the deploy script. Updated agents/instructions.agent.md to reflect this default behavior."
+  files_modified:
+    - package.json
+    - agents/instructions.agent.md

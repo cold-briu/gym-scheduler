@@ -17,28 +17,6 @@ export const CONFIG = {
     CALENDAR_ID: IDS.CALENDAR_ID,
     TIMEZONE: 'GMT-5',
 
-    DB_MAPPING: {
-        'nombre': 'name',
-        'valor': 'value',
-        'metodo': 'method',
-        'tipo de membresía': 'membershipType',
-        'fechaInicio': 'startDate',
-        'correo': 'email',
-        'telefono': 'phone',
-        'cumpleaños': 'birthdayString',
-        'usuario': 'user_id',
-        'día': 'day',
-        'horario': 'timeSlot',
-        'instructor': 'instructor',
-        'cupos totales': 'maxCapacity',
-        'cupos disponibles': 'availableSpots',
-        'inscritos': 'enrolledUsers',
-        'clase actual': 'old_class_info',
-        'nueva fecha': 'new_class_date',
-        'nuevo horario': 'new_class_time',
-        'nuevo instructor': 'new_class_instructor'
-    },
-
     MEMBERSHIP_TYPE_MONTHS: {
         'mensualidad': 1,
         'mensualidad_dirigida': 1,

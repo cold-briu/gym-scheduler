@@ -33,6 +33,6 @@ Short and concise.
 - **`out/`** is the intermediate build output directory (bundled JS). Do not confuse it with `dist/`.
 - **Versioning Workflow**: The `scripts/deploy.js` script manages releases by:
     1. Incrementing the **minor version** in `package.json` by default (e.g., `0.5.0` → `0.6.0`). Note: Future implementation will add flags for major releases and fixes (patches).
-    2. Copying the bundled code from `out/bundles.js` to `dist/main.js`.
+    2. Copying the bundled code from `out/bundles.js` to `dist/main.js`. (Note: The deploy script accepts a `--verbose` flag, which is enabled by default in `package.json`, to toggle detailed logging in the deployed bundle).
     3. Prepending the new version as a comment (e.g., `// Release: 0.6.0`) to the first line of `dist/main.js`.
     4. Pushing the updated `dist/` directory to Google Apps Script.
